@@ -11,11 +11,11 @@ int main() {
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window* window = SDL_CreateWindow(title.c_str(), 
-										  SDL_WINDOWPOS_UNDEFINED, 
-										  SDL_WINDOWPOS_UNDEFINED, 
-										  width, 
-										  height, 
-										  SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+					      SDL_WINDOWPOS_UNDEFINED, 
+					      SDL_WINDOWPOS_UNDEFINED, 
+					      width, 
+					      height, 
+					      SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	if(window == NULL) {
 		std::cerr << "Window could not be created" << std::endl;
 	}
