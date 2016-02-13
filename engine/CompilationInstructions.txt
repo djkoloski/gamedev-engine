@@ -1,0 +1,4 @@
+1. Open terminal
+2. Change working directory to gamedev-engine/engine
+3. Run command:
+	g++ src/main.cpp -o build/main.exe -Isrc/include -Lsrc/lib -lglew32 -lsdl2 -lopengl32 -std=c++98
