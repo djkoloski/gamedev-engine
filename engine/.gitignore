@@ -1,2 +1,3 @@
 bin/*
 build/*
+engine/src/config.h

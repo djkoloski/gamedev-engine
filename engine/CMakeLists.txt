@@ -86,7 +86,11 @@ if(MINGW)
 	set(SDL2_LIBRARIES ${GE_WIN_LIBRARIES_DIR}/libSDL2.dll.a)
 
 #	GL
-	set(OPENGL_LIBRARIES /MinGW/lib/libopengl32.a)
+	if(EXISTS "/MinGW/lib/libopengl32.a")
+		set(OPENGL_LIBRARIES /MinGW/lib/libopengl32.a)
+	else(EXISTS "/MinGW/lib/libopengl32.a")
+		set(OPENGL_LIBRARIES ${ROOT}/tools/mingw64/x86_64-w64-mingw32/lib/libopengl32.a)
+	endif(EXISTS "/MinGW/lib/libopengl32.a")
 
 #	GLEW
 
