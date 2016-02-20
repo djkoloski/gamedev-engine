@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 2.8.4)
 
 # Project configuration
 
@@ -6,11 +6,25 @@ project(GE)
 
 set(GE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-	set(GE_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x86)
-else(CMAKE_SIZEOF_VOID_P EQUAL 4)
-	set(GE_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x64)
-endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+if(MSVC)
+	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(GE_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x86)
+	else(CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(GE_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x64)
+	endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+	set(SDL2_LIB SDL2.lib)
+	set(SDL2MAIN_LIB SDL2main.lib)
+endif(MSVC)
+
+if(CYGWIN)
+	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(GE_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/i686)
+	else(CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(GE_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x86_64)
+	endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+	set(SDL2_LIB libSDL2.dll.a)
+	set(SDL2MAIN_LIB libSDL2main.a)
+endif(CYGWIN)
 
 set(GE_VERSION_MAJOR 0)
 set(GE_VERSION_MINOR 0)
@@ -28,8 +42,8 @@ configure_file("${GE_SOURCE_DIR}/config.h.in" "${GE_SOURCE_DIR}/config.h")
 
 set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/sdl2)
 include_directories(${SDL2_INCLUDE_DIR})
-target_link_libraries(GE ${GE_LIBRARY_DIR}/SDL2.lib)
-target_link_libraries(GE ${GE_LIBRARY_DIR}/SDL2main.lib)
+target_link_libraries(GE ${GE_LIBRARY_DIR}/${SDL2_LIB})
+target_link_libraries(GE ${GE_LIBRARY_DIR}/${SDL2MAIN_LIB})
 
 # Post-build configuration
 

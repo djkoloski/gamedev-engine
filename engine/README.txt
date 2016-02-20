@@ -1,11 +1,11 @@
 Setting up GE with CMake:
 
+mkdir build
+cd build
 Windows:
 	32-Bit:
-		mkdir build
-		cd build
 		cmake -G "Visual Studio 14 2015 Win64" ..
 	64-Bit:
-		mkdir build
-		cd build
 		cmake -G "Visual Studio 14 2015" ..
+	Cygwin:
+		cmake -G "Unix Makefiles" ..

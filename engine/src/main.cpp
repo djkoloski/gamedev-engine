@@ -1,8 +1,9 @@
 #include <iostream>
 #include "config.h"
+#define SDL_MAIN_HANDLED
 #include <SDL.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char **argv)
 {
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
 	std::cout << "Hello world!" << std::endl;
