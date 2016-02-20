@@ -11,29 +11,50 @@ set(GE_VERSION_MINOR 0)
 # Windows configuration
 
 if(MSVC)
-	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/sdl2)
+
+#	 Library directory
 
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		set(GE_WIN_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x86)
 	else(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		set(GE_WIN_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x64)
 	endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-	set(SDL2_LIBRARY ${GE_WIN_LIBRARY_DIR}/SDL2.lib ${GE_WIN_LIBRARY_DIR}/SDL2main.lib)
+
+#	SDL2
+	
+	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/sdl2)
+	set(SDL2_LIBRARY ${GE_WIN_LIBRARY_DIR}/SDL2.lib)
+
+#	GLEW
+
+	set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/glew)
+	set(GLEW_LIBRARY ${GE_WIN_LIBRARY_DIR}/glew32.lib)
+
 endif(MSVC)
 
 # Cygwin configuration
 
-message(${CMAKE_SYSTEM_NAME})
 if(CYGWIN)
-	message("Setting SDL2 include dir")
-	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/sdl2)
+
+#	Library directory
 
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		set(GE_WIN_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/i686)
 	else(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		set(GE_WIN_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x86_64)
 	endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-	set(SDL2_LIBRARY ${GE_WIN_LIBRARY_DIR}/libSDL2.dll.a ${GE_WIN_LIBRARY_DIR}/libSDL2main.a)
+
+#	SDL2
+
+	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/sdl2)
+	set(SDL2_LIBRARY ${GE_WIN_LIBRARY_DIR}/libSDL2.dll.a)
+
+#	GLEW
+
+	set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/glew)
+	set(GLEW_LIBRARY ${GE_WIN_LIBRARY_DIR}/libglew32.dll.a)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwin32")
+
 endif(CYGWIN)
 
 # Linux configuration
@@ -55,13 +76,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 		PATHS ${SDL2_SEARCH_PATHS}
 	)
 	
-	find_library(SLD2MAIN_LIBRARY_TEMP
-		NAMES SDL2main
-		PATH_SUFFIXES lib64 lib
-		PATHS ${SDL2_SEARCH_PATHS}
-	)
-	
-	set(SDL2_LIBRARY ${SDL2_LIBRARY_TEMP} ${SDL2MAIN_LIBRARY_TEMP})
+	set(SDL2_LIBRARY ${SDL2_LIBRARY_TEMP})
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 # Target configuration
@@ -78,6 +93,29 @@ configure_file("${GE_SOURCE_DIR}/config.h.in" "${GE_SOURCE_DIR}/config.h")
 include_directories(${SDL2_INCLUDE_DIR})
 target_link_libraries(GE ${SDL2_LIBRARY})
 
+# GL configuration
+
+if(MSVC)
+	find_package(OpenGL REQUIRED)
+	include_directories(${OpenGL_INCLUDE_DIRS})
+	link_directories(${OpenGL_LIBRARY_DIRS})
+	add_definitions(${OpenGL_DEFINITIONS})
+	if(NOT OPENGL_FOUND)
+		message(ERROR " OPENGL not found!")
+	endif(NOT OPENGL_FOUND)
+endif(MSVC)
+
+if(CYGWIN)
+	set(OPENGL_LIBRARIES /lib/w32api/libopengl32.a)
+endif(CYGWIN)
+
+target_link_libraries(GE ${OPENGL_LIBRARIES})
+
+# GLEW configuration
+
+include_directories(${GLEW_INCLUDE_DIR})
+target_link_libraries(GE ${GLEW_LIBRARY})
+
 # Post-build configuration
 
 if(MSVC OR CYGWIN)
@@ -86,10 +124,9 @@ if(MSVC OR CYGWIN)
 			"${GE_WIN_LIBRARY_DIR}/SDL2.dll"
 			$<TARGET_FILE_DIR:GE>
 	)
+	add_custom_command(TARGET GE POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${GE_WIN_LIBRARY_DIR}/glew32.dll"
+			$<TARGET_FILE_DIR:GE>
+	)
 endif(MSVC OR CYGWIN)
-
-message(${CMAKE_SYSTEM_NAME})
-message(${GE_SOURCE_DIR})
-message(${GE_BINARY_DIR})
-message(${SDL2_INCLUDE_DIR})
-message(${SDL2_LIBRARY})
