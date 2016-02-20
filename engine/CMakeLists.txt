@@ -137,6 +137,48 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
+# OSX configuration
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
+#	SDL2
+
+	set(SDL2_SEARCH_PATHS
+		/usr/local
+		/usr
+		/Library/Frameworks
+	)
+	
+	find_path(SDL2_INCLUDE_DIR SDL.h
+		PATH_SUFFIXES include/SDL2 include
+		PATHS ${SDL2_SEARCH_PATHS}
+	)
+	
+	find_library(SDL2_LIBRARIES_TEMP
+		NAMES SDL2
+		PATH_SUFFIXES lib64 lib
+		PATHS ${SDL2_SEARCH_PATHS}
+	)
+	
+	set(SDL2_LIBRARIES ${SDL2_LIBRARIES_TEMP})
+
+#	GL
+
+	find_package(OpenGL REQUIRED)
+	if(NOT OPENGL_FOUND)
+		message(ERROR " OPENGL not found!")
+	endif(NOT OPENGL_FOUND)
+	
+#	GLEW
+	
+	find_package(GLEW REQUIRED)
+	if(NOT GLEW_FOUND)
+		message(ERROR " GLEW not found!")
+	endif(NOT GLEW_FOUND)
+	set(GLEW_INCLUDE_DIR ${GLEW_INCLUDE_DIRS}/GL)
+
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
 # Target configuration
 
 add_executable(GE ${GE_SOURCE_DIR}/main.cpp)
