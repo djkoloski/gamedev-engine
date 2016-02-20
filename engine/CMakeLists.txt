@@ -66,6 +66,36 @@ if(CYGWIN)
 
 endif(CYGWIN)
 
+# MinGW configuration
+
+if(MINGW)
+	
+#	Library directory
+
+	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(GE_WIN_LIBRARIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/i686)
+	else(CMAKE_SIZEOF_VOID_P EQUAL 4)
+		set(GE_WIN_LIBRARIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/x86_64)
+	endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+
+	message(${GE_WIN_LIBRARIES_DIR})
+	
+#	SDL2
+
+	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/sdl2)
+	set(SDL2_LIBRARIES ${GE_WIN_LIBRARIES_DIR}/libSDL2.dll.a)
+
+#	GL
+	set(OPENGL_LIBRARIES /MinGW/lib/libopengl32.a)
+
+#	GLEW
+
+	set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/glew)
+	set(GLEW_LIBRARIES ${GE_WIN_LIBRARIES_DIR}/libglew32.dll.a)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwin32")
+	
+endif(MINGW)
+
 # Linux configuration
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -133,7 +163,7 @@ target_link_libraries(GE ${GLEW_LIBRARIES})
 
 # Post-build configuration
 
-if(MSVC OR CYGWIN)
+if(MSVC OR CYGWIN OR MINGW)
 	add_custom_command(TARGET GE POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
 			"${GE_WIN_LIBRARIES_DIR}/SDL2.dll"
@@ -144,4 +174,4 @@ if(MSVC OR CYGWIN)
 			"${GE_WIN_LIBRARIES_DIR}/glew32.dll"
 			$<TARGET_FILE_DIR:GE>
 	)
-endif(MSVC OR CYGWIN)
+endif(MSVC OR CYGWIN OR MINGW)
