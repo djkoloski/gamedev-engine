@@ -5,6 +5,8 @@ cmake_minimum_required(VERSION 2.8.4)
 project(GE)
 
 set(GE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(GE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(GE_BIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(GE_VERSION_MAJOR 0)
 set(GE_VERSION_MINOR 0)
 
@@ -185,12 +187,37 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 # Target configuration
 
-add_executable(GE ${GE_SOURCE_DIR}/main.cpp)
-set_target_properties(GE PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+function(PREPEND var prefix)
+	set(listVar "")
+	foreach(f ${ARGN})
+		list(APPEND listVar "${prefix}/${f}")
+	endforeach(f)
+	set(${var} "${listVar}" PARENT_SCOPE)
+endfunction(PREPEND)
+
+PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
+# Math
+	math/vec2.h
+
+# Types
+	types.h
+)
+
+PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
+# Math
+	math/vec2.cpp
+
+# Main
+	main.cpp
+)
+
+add_executable(GE ${GE_SOURCE} ${GE_HEADERS})
+include_directories(GE ${GE_INCLUDE_DIR})
+set_target_properties(GE PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${GE_BIN_DIR})
 
 # Source configuration
 
-configure_file("${GE_SOURCE_DIR}/config.h.in" "${GE_SOURCE_DIR}/config.h")
+configure_file("${GE_INCLUDE_DIR}/config.h.in" "${GE_INCLUDE_DIR}/config.h")
 
 # SDL2 configuration
 

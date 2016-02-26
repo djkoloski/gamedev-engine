@@ -1,12 +1,20 @@
 #include <iostream>
-#include "config.h"
+#include <config.h>
 #include <glew.h>
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 
+#include <math/vec2.h>
+
+using namespace GE::Math;
+
 int main(int argc, char **argv)
 {
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
+
+	Vec2 v (1.0f, 4.0f);
+
+	std::cout << v.x << ", " << v.y << std::endl;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
