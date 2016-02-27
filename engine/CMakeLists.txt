@@ -201,6 +201,9 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 
 # Types
 	types.h
+	
+# Windows
+	Window.h
 )
 
 PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
@@ -209,6 +212,9 @@ PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
 
 # Main
 	main.cpp
+	
+#window
+	Window.cpp
 )
 
 add_executable(GE ${GE_SOURCE} ${GE_HEADERS})
