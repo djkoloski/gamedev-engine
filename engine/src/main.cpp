@@ -4,6 +4,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 
+#include <geassert.h>
 #include <math/vec2.h>
 
 using namespace GE::Math;

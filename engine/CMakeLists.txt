@@ -196,6 +196,9 @@ function(PREPEND var prefix)
 endfunction(PREPEND)
 
 PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
+# Assert
+	geassert.h
+
 # Math
 	math/vec2.h
 
