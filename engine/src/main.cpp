@@ -11,8 +11,7 @@ using namespace GE::Math;
 
 int main(int argc, char **argv)
 {
-	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << 
-	GE_VERSION_MINOR << std::endl;
+	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
 
 	Vec2 v (1.0f, 4.0f);
 
