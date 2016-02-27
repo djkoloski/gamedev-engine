@@ -10,6 +10,8 @@ Windows:
 		cmake -G "Visual Studio 14 2015" ..
 	Cygwin:
 		cmake -G "Unix Makefiles" ..
-
+	MinGW:
+		cmake -G "MinGW Makefiles" ..
+	
 Linux:
 	cmake -G "Unix Makefiles" ..

@@ -4,6 +4,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 
+#include <geassert.h>
 #include <math/vec2.h>
 #include <containers/vector.h>
 
@@ -11,8 +12,7 @@ using namespace GE::Math;
 
 int main(int argc, char **argv)
 {
-	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << 
-	GE_VERSION_MINOR << std::endl;
+	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
 
 	Vec2 v (1.0f, 4.0f);
 	GE::Containers::Vector<int> bbb;
