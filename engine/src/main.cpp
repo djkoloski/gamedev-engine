@@ -5,6 +5,7 @@
 #include <SDL.h>
 
 #include <math/vec2.h>
+#include <containers/vector.h>
 
 using namespace GE::Math;
 
@@ -14,6 +15,8 @@ int main(int argc, char **argv)
 	GE_VERSION_MINOR << std::endl;
 
 	Vec2 v (1.0f, 4.0f);
+	GE::Containers::Vector<int> bbb;
+	std::cout << "vector size: " << bbb.Size() << std::endl;
 
 	std::cout << v.x << ", " << v.y << std::endl;
 
