@@ -201,6 +201,7 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 
 # Containers
 	containers/array.h
+	containers/vector.h
 
 # Types
 	types.h
@@ -210,8 +211,6 @@ PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
 # Math
 	math/vec2.cpp
 
-#Containers
-	containers/array.cpp
 
 # Main
 	main.cpp
