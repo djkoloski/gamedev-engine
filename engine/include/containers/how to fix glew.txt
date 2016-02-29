@@ -1,0 +1,5 @@
+on cygwin
+if glew.h disappears
+run
+rm –rf ./*
+cmake –G “Unix Makefiles” ../

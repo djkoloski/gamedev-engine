@@ -7,20 +7,29 @@ namespace GE
 	{
 		template <typename T> class Vector
 		{
-			private:
-				T *data;		//representation
-				int size;		//number of elements
-				int capacity;	//size in memory (power of 2)
-			
 			public:
-			
-			
-			//Constructor
+			//Constructors
 			Vector();
+			Vector(int size);
+			Vector(const Vector<T> &v); //copy constructor
+			~Vector(); //Destructor
 			
 			//Accessors
 			int Size();
 			
+			//Operators
+			T & operator[](int index);
+			Vector<T> & operator=(const Vector<T> &v);
+			
+			//Functions
+			void push_back(const T &value);
+			void increase_cap(int capacity);
+			
+			
+			private:
+				T *m_data;		//representation
+				int m_size;		//number of elements
+				int m_capacity;	//size in memory (power of 2)
 		};
 	}
 }
