@@ -2,14 +2,10 @@
 #include <config.h>
 #include <Window.h>
 
-#include <math/vec2.h>
-
-using namespace GE::Math;
-
 int main(int argc, char **argv)
 {
 	GE::Window window(1280, 720, "GE");
-
+	
 	SDL_Event e;
 
 	while (window.IsOpen())
