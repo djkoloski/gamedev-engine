@@ -9,6 +9,7 @@ namespace GE
 		m_height = height;
 		m_title = title;
 		std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
+		std::cout << "Compiled: " << __DATE__ << " at " << __TIME__ << std::endl;
 		
 		SDL_Init(SDL_INIT_VIDEO);
 

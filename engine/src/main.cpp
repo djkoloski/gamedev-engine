@@ -5,7 +5,6 @@
 int main(int argc, char **argv)
 {
 	GE::Window window(1280, 720, "GE");
-	
 	SDL_Event e;
 
 	while (window.IsOpen())
