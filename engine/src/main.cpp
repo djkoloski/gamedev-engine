@@ -15,13 +15,40 @@ int main(int argc, char **argv)
 {
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << 
 	GE_VERSION_MINOR << std::endl;
-
+	
 	Vec2 v (1.0f, 4.0f);
-	GE::Containers::Vector<int> bbb;
+	
+	std::cout << "TESTING VECTOR STRUCTURE" << std::endl;
+	GE::Containers::Vector<int> bbb(3);
+	GE::Containers::Vector<int> bbb2(2);
 	std::cout << "vector size: " << bbb.Size() << std::endl;
+	std::cout << "first index: " << bbb[0] << std::endl;
+	
+	int x = 1;
+	bbb.push_back(x);
+	std::cout << "bbb size: " << bbb.Size() << std::endl;
+	std::cout << "first index: " << bbb[1] << std::endl;
+	int y = 3;
+	bbb[0] = y;
+	int z = 5;
+	bbb.push_back(z);
+	std::cout << "bbb size: " << bbb.Size() << std::endl;
+	std::cout << "first index: " << bbb[0] << std::endl;
+	std::cout << "bbb content:" << std::endl;
+	for (int i = 0; i < bbb.Size(); i++){
+		std::cout << "bbb[" << i << "] is " << bbb[i] << std::endl; 
+	}
+	bbb2 = bbb;
+	//bbb2.pop_back();
+	std::cout << "bbb2 size: " << bbb2.Size() << std::endl;
+	std::cout << "bbb2 content:" << std::endl;
+	for (int i = 0; i < bbb2.Size(); i++){
+		std::cout << "bbb2[" << i << "] is " << bbb2[i] << std::endl; 
+	}
+	
 
-	std::cout << v.x << ", " << v.y << std::endl;
-
+	//std::cout << v.x << ", " << v.y << std::endl;
+/*
 	SDL_Init(SDL_INIT_VIDEO);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
@@ -62,6 +89,6 @@ int main(int argc, char **argv)
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-
+	*/
 	return 0;
 }
