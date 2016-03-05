@@ -10,10 +10,16 @@
 //TODO: Unroll loops
 Matrix2& Matrix2::operator=(const Matrix2 &rhs)
 {
+    /*
     for (unsigned i = 0; i < 4; ++i)
     {
         d1[i] = rhs.d1[i];
     }
+    */
+    d1[0] = rhs.d1[0];
+    d1[1] = rhs.d1[1];
+    d1[2] = rhs.d1[2];
+    d1[3] = rhs.d1[3];
     return *this;
 }
 
