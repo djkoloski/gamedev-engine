@@ -11,7 +11,7 @@ namespace GE
 			//Constructors
 			Vector();
 			Vector(int size);
-			Vector(const Vector<T> &v); //copy constructor
+			Vector(const Vector<T> &v);	//copy constructor
 			~Vector(); //Destructor
 			
 			//Accessors
