@@ -197,7 +197,9 @@ endfunction(PREPEND)
 
 PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 # Math
-	math/vec2.h
+	math/Matrix.hpp
+	math/Quaternion.hpp
+	math/Vector.hpp
 
 # Types
 	types.h
@@ -208,7 +210,8 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 
 PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
 # Math
-	math/vec2.cpp
+	math/Matrix.cpp
+	math/Quaternion.cpp
 
 # Main
 	main.cpp
