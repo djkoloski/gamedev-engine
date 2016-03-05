@@ -66,6 +66,13 @@ namespace GE
 			m_data[m_size++] = value;
 		}
 		
+		/*	requires: 
+			parameters:
+				capacity - 
+			modifies:
+			effects:
+			returns:
+		*/
 		template<typename T> void Vector<T>::increase_cap(int capacity)
 		{
 			if (m_data = 0){
