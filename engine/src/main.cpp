@@ -16,6 +16,11 @@ int main(int argc, char **argv)
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << 
 	GE_VERSION_MINOR << std::endl;
 
+	GE::Containers::Array<int> aaa;
+	aaa[0] = 1;
+	std::cout << "aaa: " << aaa[0] << "\n";
+
+
 	Vec2 v (1.0f, 4.0f);
 	GE::Containers::Vector<int> bbb;
 	std::cout << "vector size: " << bbb.Size() << std::endl;
