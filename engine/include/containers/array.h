@@ -1,7 +1,7 @@
 #ifndef GE_ARRAY_H_
 #define GE_ARRAY_H_
 
-#define GE_ARRAY_FIXED_SIZE 32
+#define GE_ARRAY_FIXED_SIZE 128
 
 namespace GE 
 {
@@ -11,9 +11,10 @@ namespace GE
 		class Array
 		{
 			private: 
-				T* m_memory;
+				T *m_memory;
 			public:
 				Array();
+				T& operator[](unsigned int m_index);
 		};
 	}
 }

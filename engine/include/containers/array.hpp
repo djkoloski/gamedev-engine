@@ -12,12 +12,20 @@ namespace GE
 			m_memory = (T *) calloc(GE_ARRAY_FIXED_SIZE, sizeof(T));
 			if (!m_memory)
 			{
-				/// ERROR Behavior
+				/// TODO (DUNETZ) : Add an assert or error handling to ensure that
+				/// The memory was actually aquired.
+				return;
 			}
-			/// TODO (DUNETZ) : Add an assert or error handling to ensure that
-			/// The memory was actually aquired.
 			return;
 		};
+
+		template<typename T> T& Array<T>::operator[] (unsigned int m_index)
+		{
+			if (m_index < GE_ARRAY_FIXED_SIZE)
+			{
+				return m_memory[m_index];
+			}
+		}
 	}
 }
 
