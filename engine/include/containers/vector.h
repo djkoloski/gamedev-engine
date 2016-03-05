@@ -15,7 +15,7 @@ namespace GE
 			~Vector(); //Destructor
 			
 			//Accessors
-			int Size(); //returns number of elements in the vector, not index
+			int Size();
 			
 			//Operators
 			T & operator[](int index);
@@ -23,12 +23,15 @@ namespace GE
 			
 			//Functions
 			void push_back(const T &value);
-			void increase_cap(int capacity);
 			void pop_back();
 			void insert();
 			
 			
 			private:
+				//helper functions
+				void increase_cap(int capacity);
+				
+				//member variables
 				T *m_data;		//representation
 				int m_size;		//number of elements
 				int m_capacity;	//size in memory (power of 2)

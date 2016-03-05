@@ -8,13 +8,25 @@ namespace GE
 {
 	namespace Containers
 	{
+		/*	
+			effects: creates empty vector
+		*/
 		template<typename T> Vector<T>::Vector()
 		{
 			m_size = 0;
 			m_capacity = 0;
 			m_data = 0;
 		}
-		
+		/*
+			parameters:
+				capacity - not negative 
+			modifies:
+				m_size
+				m_capacity
+				m_data
+			effects: 
+				creates vector with a capacity of "capacity"
+		*/
 		template<typename T> Vector<T>::Vector(int capacity)
 		{
 			m_size = 0;
@@ -22,6 +34,17 @@ namespace GE
 			m_data = new T[capacity];
 		}
 		
+		/*	
+			requires: an existing vector
+			parameters:
+				a vector with stuff 
+			modifies:
+				m_size
+				m_capacity
+				m_data
+			effects:
+				copy constructor and sets new vector equal to given vector
+		*/
 		template<typename T> Vector<T>::Vector(const Vector<T> &v)
 		{
 			m_size = v.m_size;
@@ -33,11 +56,27 @@ namespace GE
 			}
 		}
 		
+		/*
+			returns:
+				size of vector
+		*/
 		template<typename T> int Vector<T>::Size()
 		{
 			return m_size;
 		}
 		
+		/*	
+			requires:
+				a vector
+			parameters:
+				a vector
+			modifies:
+				m_size
+				m_capacity
+				m_data
+			effects:
+				sets one vector equal to the other
+		*/
 		template<typename T> Vector<T> &Vector<T>::operator=(const Vector<T> &v)
 		{
 			//only works for vectors of definitive size (can be different size) and doesn't copy the last index correctly
@@ -48,15 +87,33 @@ namespace GE
 				new_data[i] = v.m_data[i];
 			delete[] m_data;
 			m_data = new_data;
-			
 			return *this;
 		}
 		
+		/*	
+			requires: 
+				a vector
+			parameters:
+				index 
+			returns:
+				value stored at index
+		*/
 		template<typename T> T &Vector<T>::operator[](int index)
 		{
 			return m_data[index];
 		}
 		
+		/*	
+			requires: 
+				a value and a vector
+			parameters:
+				value 
+			modifies:
+				index at end of vector
+				possibly increases capacity
+			effects:
+				adds a value at the end of the vector
+		*/
 		template<typename T> void Vector<T>::push_back(const T &value)
 		{
 			if (m_size >= m_capacity)
@@ -66,12 +123,19 @@ namespace GE
 			m_data[m_size++] = value;
 		}
 		
-		/*	requires: 
+		/*
+			requires: 
+				vector
 			parameters:
-				capacity - 
+				capacity 
 			modifies:
+				m_data
+				m_capacity
+				m_data
+				possibly:
+					m_size
 			effects:
-			returns:
+				increases capacity of vector
 		*/
 		template<typename T> void Vector<T>::increase_cap(int capacity)
 		{
@@ -89,6 +153,14 @@ namespace GE
 			delete[] newData;
 		}
 		
+		/*
+			requires:
+				vector
+			modifies:
+				m_size
+			effects:
+				gets rid of last index
+		*/
 		template<typename T> void Vector<T>::pop_back()
 		{
 			m_size--; //is this efficient? 
