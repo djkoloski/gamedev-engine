@@ -203,8 +203,7 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 	math/vec2.h
 
 # Containers
-	containers/array.h
-	containers/array.hpp
+	containers/fixedVector.h
 	containers/vector.h
 
 # Types
