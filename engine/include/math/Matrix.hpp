@@ -43,7 +43,6 @@ public:
     Matrix2 operator*(const float& rhs);
     //Functions
     float Det();
-    void Reset();
     static Matrix2 Identity();
     Matrix2 Transpose();
     Matrix2 Inverse();
@@ -86,7 +85,6 @@ public:
     Matrix3 operator*(const float &rhs);
     //Functions
     float Det();
-    void Reset();
     static Matrix3 Identity();
     Matrix3 Transpose();
     Matrix3 Inverse();
@@ -131,9 +129,7 @@ public:
     Matrix4& operator*=(const float& rhs);
     Matrix4 operator*(const float& rhs);
     //Functions
-    float* Values();
     float Det();
-    void Reset();
     static Matrix4 Identity();
     Matrix4 Transpose();
     Matrix4 Inverse();

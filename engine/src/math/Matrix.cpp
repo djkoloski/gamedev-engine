@@ -12,32 +12,22 @@ namespace Math
 //Matrix2
 //
 
-//TODO: Unroll loops
-Matrix2& Matrix2::operator=(const Matrix2 &rhs)
-{
-    d1[0] = rhs.d1[0];
-    d1[1] = rhs.d1[1];
-    d1[2] = rhs.d1[2];
-    d1[3] = rhs.d1[3];
-    return *this;
-}
-
 Matrix2& Matrix2::operator+=(const Matrix2 &rhs)
 {
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        d1[i] += rhs.d1[i];
-    }
+    d1[0] += rhs.d1[0];
+    d1[1] += rhs.d1[1];
+    d1[2] += rhs.d1[2];
+    d1[3] += rhs.d1[3];
     return *this;
 }
 
 Matrix2 Matrix2::operator+(const Matrix2 &rhs)
 {
     Matrix2 result;
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        result.d1[i] = d1[i] + rhs.d1[i];
-    }
+    result.d1[1] = d1[1] + rhs.d1[1];
+		result.d1[2] = d1[2] + rhs.d1[2];
+		result.d1[3] = d1[3] + rhs.d1[3];
+		result.d1[4] = d1[4] + rhs.d1[4];
     return result;
 }
 
@@ -54,18 +44,6 @@ Matrix2& Matrix2::operator*=(const Matrix2 &rhs)
 
 Matrix2 Matrix2::operator*(const Matrix2 &rhs)
 {
-    /*
-    Matrix2 result;
-    for (unsigned j = 0; j < 2; ++j)
-    {
-        for (unsigned i = 0; i < 2; ++i)
-        {
-            set(j, i, Row(j).Dot(rhs.Col(i)));
-        }
-    }
-    return result;
-    */
-
     Matrix2 result;
     result.v11 = v11 * rhs.v11 + v12 * rhs.v21;
     result.v21 = v21 * rhs.v11 + v22 * rhs.v21;
@@ -84,30 +62,30 @@ Vector2 Matrix2::operator*(const Vector2& rhs)
 
 Matrix2& Matrix2::operator*=(const float& rhs)
 {
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        d1[i] = d1[i] * rhs;
-    }
+    d1[1] *= rhs;
+		d1[2] *= rhs;
+		d1[3] *= rhs;
+		d1[4] *= rhs;
     return *this;
 }
 
 Matrix2 Matrix2::operator*(const float& rhs)
 {
     Matrix2 result;
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        result.d1[i] = d1[i] * rhs;
-    }
+    result.d1[1] = d1[1] * rhs;
+		result.d1[2] = d1[2] * rhs;
+		result.d1[3] = d1[3] * rhs;
+		result.d1[4] = d1[4] * rhs;
     return result;
 }
 
 Matrix2 operator*(const float &lhs, const Matrix2 &rhs)
 {
     Matrix2 result;
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        result.d1[i] = lhs * rhs.d1[i];
-    }
+    result.d1[1] = lhs * rhs.d1[1];
+		result.d1[2] = lhs * rhs.d1[2];
+		result.d1[3] = lhs * rhs.d1[3];
+		result.d1[4] = lhs * rhs.d1[4];
     return result;
 }
 
@@ -124,14 +102,6 @@ Matrix2 Matrix2::Identity()
 		identity.v12 = 0.0f;
 		identity.v22 = 1.0f;
 		return identity;
-}
-
-void Matrix2::Reset()
-{
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        d1[i] = 0;
-    }
 }
 
 Matrix2 Matrix2::Inverse()
@@ -184,19 +154,30 @@ void Matrix2::SetCol(Vector2 &col, unsigned col_num)
 Matrix3 Matrix3::operator+(const Matrix3 &rhs)
 {
     Matrix3 result;
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        result.d1[i] = d1[i] + rhs.d1[i];
-    }
+		result.d1[0] = d1[0] + rhs.d1[0];
+    result.d1[1] = d1[1] + rhs.d1[1];
+		result.d1[2] = d1[2] + rhs.d1[2];
+		result.d1[3] = d1[3] + rhs.d1[3];
+		result.d1[4] = d1[4] + rhs.d1[4];
+		result.d1[5] = d1[5] + rhs.d1[5];
+		result.d1[6] = d1[6] + rhs.d1[6];
+		result.d1[7] = d1[7] + rhs.d1[7];
+		result.d1[8] = d1[8] + rhs.d1[8];
+		result.d1[9] = d1[9] + rhs.d1[9];
     return result;
 }
 
 Matrix3& Matrix3::operator+=(const Matrix3 &rhs)
 {
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        d1[i] += rhs.d1[i];
-    }
+		d1[0] += rhs.d1[0];
+    d1[1] += rhs.d1[1];
+		d1[2] += rhs.d1[2];
+		d1[3] += rhs.d1[3];
+		d1[4] += rhs.d1[4];
+		d1[5] += rhs.d1[5];
+		d1[6] += rhs.d1[6];
+		d1[7] += rhs.d1[7];
+		d1[8] += rhs.d1[8];
     return *this;
 }
 
@@ -226,37 +207,53 @@ Matrix3& Matrix3::operator*=(const Matrix3 &rhs)
 Vector3 Matrix3::operator*(const Vector3& rhs)
 {
     Vector3 result;
-    result.x = v11 * rhs.x * v12 * rhs.y;
-    result.y = v21 * rhs.x * v22 * rhs.y;
+    result.x = v11 * rhs.x + v12 * rhs.y + v13 * rhs.z;
+    result.y = v21 * rhs.x + v22 * rhs.y + v23 * rhs.z;
+		result.z = v31 * rhs.x + v32 * rhs.y + v33 * rhs.z;
     return result;
 }
 
 Matrix3& Matrix3::operator*=(const float& rhs)
 {
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        d1[i] = d1[i] * rhs;
-    }
+    d1[1] *= rhs;
+		d1[2] *= rhs;
+		d1[3] *= rhs;
+		d1[4] *= rhs;
+		d1[5] *= rhs;
+		d1[6] *= rhs;
+		d1[7] *= rhs;
+		d1[8] *= rhs;
+		d1[9] *= rhs;
     return *this;
 }
 
 Matrix3 Matrix3::operator*(const float& rhs)
 {
     Matrix3 result;
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        result.d1[i] = d1[i] * rhs;
-    }
+    result.d1[1] = d1[1] * rhs;
+		result.d1[2] = d1[2] * rhs;
+		result.d1[3] = d1[3] * rhs;
+		result.d1[4] = d1[4] * rhs;
+		result.d1[5] = d1[5] * rhs;
+		result.d1[6] = d1[6] * rhs;
+		result.d1[7] = d1[7] * rhs;
+		result.d1[8] = d1[8] * rhs;
+		result.d1[9] = d1[9] * rhs;
     return result;
 }
 
 Matrix3 operator*(const float &lhs, const Matrix3 &rhs)
 {
     Matrix3 result;
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        result.d1[i] = lhs * rhs.d1[i];
-    }
+    result.d1[1] = lhs * rhs.d1[1];
+		result.d1[2] = lhs * rhs.d1[2];
+		result.d1[3] = lhs * rhs.d1[3];
+		result.d1[4] = lhs * rhs.d1[4];
+		result.d1[5] = lhs * rhs.d1[5];
+		result.d1[6] = lhs * rhs.d1[6];
+		result.d1[7] = lhs * rhs.d1[7];
+		result.d1[8] = lhs * rhs.d1[8];
+		result.d1[9] = lhs * rhs.d1[9];
     return result;
 }
 
@@ -280,14 +277,6 @@ Matrix3 Matrix3::Identity()
 		identity.v23 = 0.0f;
 		identity.v33 = 1.0f;
 		return identity;
-}
-
-void Matrix3::Reset()
-{
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        d1[i] = 0;
-    }
 }
 
 Matrix3 Matrix3::Inverse()
@@ -374,19 +363,43 @@ Matrix4 Matrix3::ToMatrix4()
 Matrix4 Matrix4::operator+(const Matrix4 &rhs)
 {
     Matrix4 result;
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        result.d1[i] = d1[i] + rhs.d1[i];
-    }
+		result.d1[0] = d1[0] + rhs.d1[0];
+    result.d1[1] = d1[1] + rhs.d1[1];
+		result.d1[2] = d1[2] + rhs.d1[2];
+		result.d1[3] = d1[3] + rhs.d1[3];
+		result.d1[4] = d1[4] + rhs.d1[4];
+		result.d1[5] = d1[5] + rhs.d1[5];
+		result.d1[6] = d1[6] + rhs.d1[6];
+		result.d1[7] = d1[7] + rhs.d1[7];
+		result.d1[8] = d1[8] + rhs.d1[8];
+		result.d1[9] = d1[9] + rhs.d1[9];
+		result.d1[10] = d1[10] + rhs.d1[10];
+		result.d1[11] = d1[10] + rhs.d1[10];
+		result.d1[12] = d1[10] + rhs.d1[10];
+		result.d1[13] = d1[10] + rhs.d1[10];
+		result.d1[14] = d1[10] + rhs.d1[10];
+		result.d1[15] = d1[10] + rhs.d1[10];
     return result;
 }
 
 Matrix4& Matrix4::operator+=(const Matrix4 &rhs)
 {
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        d1[i] += rhs.d1[i];
-    }
+    d1[0] += rhs.d1[0];
+    d1[1] += rhs.d1[1];
+		d1[2] += rhs.d1[2];
+		d1[3] += rhs.d1[3];
+		d1[4] += rhs.d1[4];
+		d1[5] += rhs.d1[5];
+		d1[6] += rhs.d1[6];
+		d1[7] += rhs.d1[7];
+		d1[8] += rhs.d1[8];
+		d1[9] += rhs.d1[9];
+    d1[10] += rhs.d1[10];
+		d1[11] += rhs.d1[11];
+		d1[12] += rhs.d1[12];
+		d1[13] += rhs.d1[13];
+		d1[14] += rhs.d1[14];
+		d1[15] += rhs.d1[15];
     return *this;
 }
 
@@ -427,43 +440,67 @@ Matrix4& Matrix4::operator*=(const Matrix4 &rhs)
 Vector4 Matrix4::operator*(const Vector4& rhs)
 {
     Vector4 result;
-    result.x = v11 * rhs.x * v12 * rhs.y;
-    result.y = v21 * rhs.x * v22 * rhs.y;
+    result.x = v11 * rhs.x + v12 * rhs.y + v13 * rhs.z + v14 * rhs.w;
+    result.y = v21 * rhs.x + v22 * rhs.y + v23 * rhs.z + v24 * rhs.w;
+		result.z = v31 * rhs.x + v32 * rhs.y + v33 * rhs.z + v34 * rhs.w;
+    result.w = v41 * rhs.x + v42 * rhs.y + v43 * rhs.z + v44 * rhs.w;
     return result;
 }
 
 Matrix4& Matrix4::operator*=(const float& rhs)
 {
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        d1[i] *= rhs;
-    }
+    d1[1] *= rhs;
+		d1[2] *= rhs;
+		d1[3] *= rhs;
+		d1[4] *= rhs;
+		d1[5] *= rhs;
+		d1[6] *= rhs;
+		d1[7] *= rhs;
+		d1[8] *= rhs;
+		d1[9] *= rhs;
+		d1[10] *= rhs;
+		d1[11] *= rhs;
+		d1[12] *= rhs;
+		d1[13] *= rhs;
+		d1[14] *= rhs;
+		d1[15] *= rhs;
     return *this;
 }
 
 Matrix4 Matrix4::operator*(const float& rhs)
 {
     Matrix4 result;
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        result.d1[i] = d1[i] * rhs;
-    }
+    result.d1[1] = d1[1] * rhs;
+		result.d1[2] = d1[2] * rhs;
+		result.d1[3] = d1[3] * rhs;
+		result.d1[4] = d1[4] * rhs;
+		result.d1[5] = d1[5] * rhs;
+		result.d1[6] = d1[6] * rhs;
+		result.d1[7] = d1[7] * rhs;
+		result.d1[8] = d1[8] * rhs;
+		result.d1[9] = d1[9] * rhs;
+		result.d1[10] = d1[10] * rhs;
+		result.d1[11] = d1[11] * rhs;
+		result.d1[12] = d1[12] * rhs;
+		result.d1[13] = d1[13] * rhs;
+		result.d1[14] = d1[14] * rhs;
+		result.d1[15] = d1[15] * rhs;
     return result;
 }
 
 Matrix4 operator*(const float &lhs, const Matrix4 &rhs)
 {
     Matrix4 result;
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        result.d1[i] = lhs * rhs.d1[i];
-    }
+    result.d1[1] = lhs * rhs.d1[1];
+		result.d1[2] = lhs * rhs.d1[2];
+		result.d1[3] = lhs * rhs.d1[3];
+		result.d1[4] = lhs * rhs.d1[4];
+		result.d1[5] = lhs * rhs.d1[5];
+		result.d1[6] = lhs * rhs.d1[6];
+		result.d1[7] = lhs * rhs.d1[7];
+		result.d1[8] = lhs * rhs.d1[8];
+		result.d1[9] = lhs * rhs.d1[9];
     return result;
-}
-
-float* Matrix4::Values()
-{
-    return d1;
 }
 
 float Matrix4::Det()
@@ -493,14 +530,6 @@ Matrix4 Matrix4::Identity()
 		identity.v34 = 0.0f;
 		identity.v44 = 1.0f;
 		return identity;
-}
-
-void Matrix4::Reset()
-{
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        d1[i] = 0;
-    }
 }
 
 Matrix4 Matrix4::Inverse()
