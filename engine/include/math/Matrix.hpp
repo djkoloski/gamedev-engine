@@ -1,8 +1,13 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "Vector.hpp"
+#include <math/Vector.hpp>
 
+namespace GE
+{
+namespace Math
+{
+	
 class Matrix2;
 class Matrix3;
 class Matrix4;
@@ -20,14 +25,13 @@ public:
     union //Matrix data
     {
         struct { //Individual access
-            float v11, v12;
-            float v21, v22;
+            float v11, v21;
+            float v12, v22;
         };
         float d1[4]; //1D access
         float d2[2][2]; //2D access
     };
     //Operators - on same object
-    Matrix2& operator=(const Matrix2 &rhs);
     Matrix2& operator+=(const Matrix2 &rhs);
     Matrix2 operator+(const Matrix2 &rhs);
     Matrix2& operator*=(const Matrix2 &rhs);
@@ -40,7 +44,7 @@ public:
     //Functions
     float Det();
     void Reset();
-    static const Matrix2 Identity();
+    static Matrix2 Identity();
     Matrix2 Transpose();
     Matrix2 Inverse();
     Vector2 Row(unsigned row);
@@ -63,15 +67,14 @@ public:
     union //Matrix data
     {
         struct { //Individual access
-            float v11, v12, v13;
-            float v21, v22, v23;
-            float v31, v32, v33;
+            float v11, v21, v31;
+            float v12, v22, v32;
+            float v13, v23, v33;
         };
         float d1[9]; //1D access
         float d2[3][3]; //2D access
     };
     //Operators - on same object
-    Matrix3& operator=(const Matrix3 &rhs);
     Matrix3& operator+=(const Matrix3 &rhs);
     Matrix3 operator+(const Matrix3 &rhs);
     Matrix3& operator*=(const Matrix3 &rhs);
@@ -84,7 +87,7 @@ public:
     //Functions
     float Det();
     void Reset();
-    static const Matrix3 Identity();
+    static Matrix3 Identity();
     Matrix3 Transpose();
     Matrix3 Inverse();
     Vector3 Row(unsigned row);
@@ -109,16 +112,15 @@ public:
     union //Matrix data
     {
         struct { //Individual access
-            float v11, v12, v13, v14;
-            float v21, v22, v23, v24;
-            float v31, v32, v33, v34;
-            float v41, v42, v43, v44;
+            float v11, v21, v31, v41;
+            float v12, v22, v32, v42;
+            float v13, v23, v33, v43;
+            float v14, v24, v34, v44;
         };
         float d1[16]; //1D access
         float d2[4][4]; //2D access
     };
     //Operators - on same object
-    Matrix4& operator=(const Matrix4 &rhs);
     Matrix4& operator+=(const Matrix4 &rhs);
     Matrix4 operator+(const Matrix4 &rhs);
     Matrix4& operator*=(const Matrix4 &rhs);
@@ -132,7 +134,7 @@ public:
     float* Values();
     float Det();
     void Reset();
-    static const Matrix4 Identity();
+    static Matrix4 Identity();
     Matrix4 Transpose();
     Matrix4 Inverse();
     Vector4 Row(unsigned row);
@@ -140,5 +142,8 @@ public:
     void SetRow(Vector4 &row, unsigned row_num);
     void SetCol(Vector4 &col, unsigned col_num);
 };
+
+} //End of namespace "Math"
+} //End of namespace "GE"
 
 #endif // MATRIX_H

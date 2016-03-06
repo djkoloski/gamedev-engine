@@ -12,7 +12,9 @@ int main(int argc, char **argv)
 {
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
 
-	Vector2 {1.0f, 4.0f};
+	Vector2 v;
+	v.x = 1.0f;
+	v.y = 4.0f;
 
 	std::cout << v.x << ", " << v.y << std::endl;
 

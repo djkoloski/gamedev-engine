@@ -1,22 +1,18 @@
 #include <cmath>
 
-#include "Vector.hpp"
-#include "Matrix.hpp"
+#include <math/Vector.hpp>
+#include <math/Matrix.hpp>
 
+namespace GE
+{
+namespace Math
+{
+	
 //
 //Matrix2
 //
 
 //TODO: Unroll loops
-Matrix2& Matrix2::operator=(const Matrix2 &rhs)
-{
-    for (unsigned i = 0; i < 4; ++i)
-    {
-        d1[i] = rhs.d1[i];
-    }
-    return *this;
-}
-
 Matrix2& Matrix2::operator+=(const Matrix2 &rhs)
 {
     for (unsigned i = 0; i < 4; ++i)
@@ -111,9 +107,14 @@ float Matrix2::Det()
     return v11 * v22 - v21 * v12;
 }
 
-const Matrix2 Matrix2::Identity()
+Matrix2 Matrix2::Identity()
 {
-    return Matrix2{1.0f,0.0f,0.0f,1.0f};
+    Matrix2 identity;
+		identity.v11 = 1.0f;
+		identity.v21 = 0.0f;
+		identity.v12 = 0.0f;
+		identity.v22 = 1.0f;
+		return identity;
 }
 
 void Matrix2::Reset()
@@ -126,19 +127,13 @@ void Matrix2::Reset()
 
 Matrix2 Matrix2::Inverse()
 {
-    float det = Det();
-    if (det != 0)
-    {
-        float inv_det = 1.0f / det;
-        Matrix2 result;
-        result.v11 = v22 * inv_det;
-        result.v21 = -v12 * inv_det;
-        result.v12 = -v21 * inv_det;
-        result.v22 = v11 * inv_det;
-        return result;
-    }
-    else
-        return Matrix2::Identity(); //Not sure what a good backup plan would be...
+		float inv_det = 1.0f / Det();
+		Matrix2 result;
+		result.v11 = v22 * inv_det;
+		result.v21 = -v12 * inv_det;
+		result.v12 = -v21 * inv_det;
+		result.v22 = v11 * inv_det;
+		return result;
 }
 
 Matrix2 Matrix2::Transpose()
@@ -176,15 +171,6 @@ void Matrix2::SetCol(Vector2 &col, unsigned col_num)
 //
 // Matrix3
 //
-
-Matrix3& Matrix3::operator=(const Matrix3 &rhs)
-{
-    for (unsigned i = 0; i < 9; ++i)
-    {
-        d1[i] = rhs.d1[i];
-    }
-    return *this;
-}
 
 Matrix3 Matrix3::operator+(const Matrix3 &rhs)
 {
@@ -272,11 +258,19 @@ float Matrix3::Det()
             v13 * (v21 * v32 - v31 * v22));
 }
 
-const Matrix3 Matrix3::Identity()
+Matrix3 Matrix3::Identity()
 {
-    return Matrix3{1.0f,0.0f,0.0f,
-                   0.0f,1.0f,0.0f,
-                   0.0f,0.0f,1.0f};
+    Matrix3 identity;
+		identity.v11 = 1.0f;
+		identity.v21 = 0.0f;
+		identity.v31 = 0.0f;
+    identity.v12 = 0.0f;
+		identity.v22 = 1.0f;
+		identity.v32 = 0.0f;
+    identity.v13 = 0.0f;
+		identity.v23 = 0.0f;
+		identity.v33 = 1.0f;
+		return identity;
 }
 
 void Matrix3::Reset()
@@ -289,25 +283,18 @@ void Matrix3::Reset()
 
 Matrix3 Matrix3::Inverse()
 {
-    float det = Det();
-    if (det != 0)
-    {
-        float inv_det = 1.0f / det;
-        Matrix3 result;
-        result.v11 = (v22 * v33 - v32 * v23) * inv_det;
-        result.v21 = (v23 * v31 - v33 * v21) * inv_det;
-        result.v31 = (v21 * v32 - v31 * v22) * inv_det;
-        result.v12 = (v13 * v32 - v33 * v12) * inv_det;
-        result.v22 = (v11 * v33 - v31 * v13) * inv_det;
-        result.v32 = (v12 * v31 - v32 * v11) * inv_det;
-        result.v13 = (v12 * v23 - v22 * v13) * inv_det;
-        result.v23 = (v13 * v21 - v23 * v11) * inv_det;
-        result.v33 = (v11 * v22 - v21 * v12) * inv_det;
-        return result;
-    }
-
-    else
-        return Matrix3::Identity(); //Not sure what a good backup plan would be...
+		float inv_det = 1.0f / Det();
+		Matrix3 result;
+		result.v11 = (v22 * v33 - v32 * v23) * inv_det;
+		result.v21 = (v23 * v31 - v33 * v21) * inv_det;
+		result.v31 = (v21 * v32 - v31 * v22) * inv_det;
+		result.v12 = (v13 * v32 - v33 * v12) * inv_det;
+		result.v22 = (v11 * v33 - v31 * v13) * inv_det;
+		result.v32 = (v12 * v31 - v32 * v11) * inv_det;
+		result.v13 = (v12 * v23 - v22 * v13) * inv_det;
+		result.v23 = (v13 * v21 - v23 * v11) * inv_det;
+		result.v33 = (v11 * v22 - v21 * v12) * inv_det;
+		return result;
 }
 
 Matrix3 Matrix3::Transpose()
@@ -375,15 +362,6 @@ Matrix4 Matrix3::ToMatrix4()
 //Matrix4
 //
 
-Matrix4& Matrix4::operator=(const Matrix4 &rhs)
-{
-    for (unsigned i = 0; i < 16; ++i)
-    {
-        d1[i] = rhs.d1[i];
-    }
-    return *this;
-}
-
 Matrix4 Matrix4::operator+(const Matrix4 &rhs)
 {
     Matrix4 result;
@@ -403,19 +381,30 @@ Matrix4& Matrix4::operator+=(const Matrix4 &rhs)
     return *this;
 }
 
+//
 Matrix4 Matrix4::operator*(const Matrix4 &rhs)
 {
     Matrix4 result;
 
-    result.v11 = v11 * rhs.v11 + v12 * rhs.v21 + v13 * rhs. v31;
-    result.v21 = v21 * rhs.v11 + v22 * rhs.v21 + v23 * rhs. v31;
-    result.v31 = v31 * rhs.v11 + v32 * rhs.v21 + v33 * rhs. v31;
-    result.v12 = v11 * rhs.v12 + v12 * rhs.v22 + v13 * rhs. v32;
-    result.v22 = v21 * rhs.v12 + v22 * rhs.v22 + v23 * rhs. v32;
-    result.v32 = v31 * rhs.v12 + v32 * rhs.v22 + v33 * rhs. v32;
-    result.v13 = v11 * rhs.v13 + v12 * rhs.v23 + v13 * rhs. v33;
-    result.v23 = v21 * rhs.v13 + v22 * rhs.v23 + v23 * rhs. v33;
-    result.v33 = v31 * rhs.v13 + v32 * rhs.v23 + v33 * rhs. v33;
+    result.v11 = v11 * rhs.v11 + v12 * rhs.v21 + v13 * rhs. v31 + v14 * rhs. v41;
+    result.v21 = v21 * rhs.v11 + v22 * rhs.v21 + v23 * rhs. v31 + v24 * rhs. v41;
+    result.v31 = v31 * rhs.v11 + v32 * rhs.v21 + v33 * rhs. v31 + v34 * rhs. v41;
+		result.v41 = v41 * rhs.v11 + v42 * rhs.v21 + v43 * rhs. v31 + v44 * rhs. v41;
+		
+		result.v12 = v11 * rhs.v12 + v12 * rhs.v22 + v13 * rhs. v32 + v14 * rhs. v42;
+    result.v22 = v21 * rhs.v12 + v22 * rhs.v22 + v23 * rhs. v32 + v24 * rhs. v42;
+    result.v32 = v31 * rhs.v12 + v32 * rhs.v22 + v33 * rhs. v32 + v34 * rhs. v42;
+		result.v42 = v41 * rhs.v12 + v42 * rhs.v22 + v43 * rhs. v32 + v44 * rhs. v42;
+		
+		result.v13 = v11 * rhs.v13 + v12 * rhs.v23 + v13 * rhs. v33 + v14 * rhs. v43;
+    result.v23 = v21 * rhs.v13 + v22 * rhs.v23 + v23 * rhs. v33 + v24 * rhs. v43;
+    result.v33 = v31 * rhs.v13 + v32 * rhs.v23 + v33 * rhs. v33 + v34 * rhs. v43;
+		result.v43 = v41 * rhs.v13 + v42 * rhs.v23 + v43 * rhs. v33 + v44 * rhs. v43;
+		
+		result.v14 = v11 * rhs.v14 + v12 * rhs.v24 + v13 * rhs. v34 + v14 * rhs. v44;
+    result.v24 = v21 * rhs.v14 + v22 * rhs.v24 + v23 * rhs. v34 + v24 * rhs. v44;
+    result.v34 = v31 * rhs.v14 + v32 * rhs.v24 + v33 * rhs. v34 + v34 * rhs. v44;
+		result.v44 = v41 * rhs.v14 + v42 * rhs.v24 + v43 * rhs. v34 + v44 * rhs. v44;
 
     return result;
 }
@@ -475,12 +464,26 @@ float Matrix4::Det()
             v13 * (v21 * v32 - v31 * v22));
 }
 
-const Matrix4 Matrix4::Identity()
+Matrix4 Matrix4::Identity()
 {
-    return Matrix4{1.0f,0.0f,0.0f,0.0f,
-                   0.0f,1.0f,0.0f,0.0f,
-                   0.0f,0.0f,1.0f,0.0f,
-                   0.0f,0.0f,0.0f,1.0f};
+    Matrix4 identity;
+		identity.v11 = 1.0f;
+		identity.v21 = 0.0f;
+		identity.v31 = 0.0f;
+		identity.v41 = 0.0f;
+    identity.v12 = 0.0f;
+		identity.v22 = 1.0f;
+		identity.v32 = 0.0f;
+		identity.v42 = 0.0f;
+    identity.v13 = 0.0f;
+		identity.v23 = 0.0f;
+		identity.v33 = 1.0f;
+		identity.v43 = 0.0f;
+    identity.v14 = 0.0f;
+		identity.v24 = 0.0f;
+		identity.v34 = 0.0f;
+		identity.v44 = 1.0f;
+		return identity;
 }
 
 void Matrix4::Reset()
@@ -506,31 +509,25 @@ Matrix4 Matrix4::Inverse()
     float b09 = v32*v43 - v33*v42;
     float b10 = v32*v44 - v34*v42;
     float b11 = v33*v44 - v34*v43;
-    if (det != 0)
-    {
-        float inv_det = 1.0f / (b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06);
-        Matrix4 result;
-        result.v11 = (v22*b11 - v23*b10 + v24*b09)*inv_det;
-        result.v21 = (-v12*b11 + v13*b10 - v14*b09)*inv_det;
-        result.v31 = (v42*b05 - v43*b04 + v44*b03)*inv_det;
-        result.v41 = (-v32*b05 + v33*b04 - v34*b03)*inv_det;
-        result.v12 = (-v21*b11 + v23*b08 - v24*b07)*inv_det;
-        result.v22 = (v11*b11 - v13*b08 + v14*b07)*inv_det;
-        result.v32 = (-v41*b05 + v43*b02 - v44*b01)*inv_det;
-        result.v42 = (v31*b05 - v33*b02 + v34*b01)*inv_det;
-        result.v13 = (v21*b10 - v22*b08 + v24*b06)*inv_det;
-        result.v23 = (-v11*b10 + v12*b08 - v14*b06)*inv_det;
-        result.v33 = (v41*b04 - v42*b02 + v44*b00)*inv_det;
-        result.v43 = (-v31*b04 + v32*b02 - v34*b00)*inv_det;
-        result.v14 = (-v21*b09 + v22*b07 - v23*b06)*inv_det;
-        result.v24 = (v11*b09 - v12*b07 + v13*b06)*inv_det;
-        result.v34 = (-v41*b03 + v42*b01 - v43*b00)*inv_det;
-        result.v44 = (v31*b03 - v32*b01 + v33*b00)*inv_det;
-        return result;
-    }
-
-    else
-        return Matrix4::Identity(); //Not sure what a good backup plan would be...
+		float inv_det = 1.0f / (b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06);
+		Matrix4 result;
+		result.v11 = (v22*b11 - v23*b10 + v24*b09)*inv_det;
+		result.v21 = (-v12*b11 + v13*b10 - v14*b09)*inv_det;
+		result.v31 = (v42*b05 - v43*b04 + v44*b03)*inv_det;
+		result.v41 = (-v32*b05 + v33*b04 - v34*b03)*inv_det;
+		result.v12 = (-v21*b11 + v23*b08 - v24*b07)*inv_det;
+		result.v22 = (v11*b11 - v13*b08 + v14*b07)*inv_det;
+		result.v32 = (-v41*b05 + v43*b02 - v44*b01)*inv_det;
+		result.v42 = (v31*b05 - v33*b02 + v34*b01)*inv_det;
+		result.v13 = (v21*b10 - v22*b08 + v24*b06)*inv_det;
+		result.v23 = (-v11*b10 + v12*b08 - v14*b06)*inv_det;
+		result.v33 = (v41*b04 - v42*b02 + v44*b00)*inv_det;
+		result.v43 = (-v31*b04 + v32*b02 - v34*b00)*inv_det;
+		result.v14 = (-v21*b09 + v22*b07 - v23*b06)*inv_det;
+		result.v24 = (v11*b09 - v12*b07 + v13*b06)*inv_det;
+		result.v34 = (-v41*b03 + v42*b01 - v43*b00)*inv_det;
+		result.v44 = (v31*b03 - v32*b01 + v33*b00)*inv_det;
+		return result;
 }
 
 Matrix4 Matrix4::Transpose()
@@ -580,3 +577,6 @@ void Matrix4::SetCol(Vector4 &col, unsigned col_num)
     d2[2][col_num] = col.z;
     d2[3][col_num] = col.w;
 }
+
+} //End of namespace "Math"
+} //End of namespace "GE"

@@ -1,7 +1,13 @@
 #include <cmath>
+//For sin, acos, sqrt, etc. So, could be replaced easily.
 
-#include "Matrix.hpp"
-#include "Quaternion.hpp"
+#include <math/Matrix.hpp>
+#include <math/Quaternion.hpp>
+
+namespace GE
+{
+namespace Math
+{
 
 //Replace a quaternion with another one.
 Quaternion& Quaternion::operator=(const Matrix3 &rhs)
@@ -35,10 +41,10 @@ Quaternion& Quaternion::operator+=(const Quaternion &rhs)
 Quaternion Quaternion::operator*(const Quaternion &rhs)
 {
     Quaternion result;
-    result.q[0] = w*rhs.w - x*rhs.x - y*rhs.y - z*rhs.z;
-    result.q[1] = x*rhs.w + w*rhs.x + y*rhs.z - z*rhs.y;
-    result.q[2] = y*rhs.w + w*rhs.y + z*rhs.x - x*rhs.z;
-    result.q[3] = z*rhs.w + w*rhs.z + x*rhs.y - y*rhs.x;
+    result.w = w*rhs.w - x*rhs.x - y*rhs.y - z*rhs.z;
+    result.x = x*rhs.w + w*rhs.x + y*rhs.z - z*rhs.y;
+    result.y = y*rhs.w + w*rhs.y + z*rhs.x - x*rhs.z;
+    result.z = z*rhs.w + w*rhs.z + x*rhs.y - y*rhs.x;
     return result;
 }
 
@@ -55,7 +61,12 @@ Quaternion& Quaternion::operator*=(const Quaternion &rhs)
 
 Quaternion Quaternion::Conjugate() const
 {
-    return Quaternion{w,-x,-y,-z};
+		Quaternion conjugate;
+		conjugate.w = w;
+		conjugate.x = -x;
+		conjugate.y = -y;
+		conjugate.z = -z;
+    return conjugate;
 }
 
 //Normalizes the quaternion. Prevents numerical drift.
@@ -63,7 +74,7 @@ Quaternion Quaternion::Conjugate() const
 void Quaternion::Normalize()
 {
     float magnitude = w * w + x * x + y * y + z * z;
-    if (magnitude < 0.9999f)
+    if (magnitude < 0.999f || magnitude > 1.0001f) //If close to normalized, skip.
     {
         magnitude = sqrt(magnitude);
         w /= magnitude;
@@ -83,10 +94,11 @@ Vector3 Quaternion::Direction() const
 //This scales each value in the quaternion by a scalar.
 Quaternion operator*(float lhs, const Quaternion &rhs)
 {
-    return Quaternion{lhs*rhs.w
-                     ,lhs*rhs.x
-                     ,lhs*rhs.y
-                     ,lhs*rhs.z};
+    Quaternion result;
+		result.w = lhs*rhs.w;
+    result.x = lhs*rhs.x;
+    result.y = lhs*rhs.y;
+    result.z = lhs*rhs.z;
 }
 
 //Converts a 3x3 matrix to a quaternion.
@@ -172,3 +184,6 @@ Quaternion SLERP(Quaternion p, Quaternion q, float t)
 
     return wp * p + wq * q;
 }
+
+} //End of namespace "Math"
+} //End of namespace "GE"

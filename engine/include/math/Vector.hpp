@@ -1,6 +1,11 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+namespace GE
+{
+namespace Math
+{
+
 //Vector2
 
 /*
@@ -20,8 +25,8 @@ public:
     Vector2 operator+(const Vector2& b)
         { return Vector2(x + b.x, y + b.y); }
     Vector2& operator+=(const Vector2& b)
-        { x += b.x; y += b.x; return *this; }
-    static float Dot(const Vector2& a, const Vector2& b)
+        { x += b.x; y += b.y; return *this; }
+    float Dot(const Vector2& a, const Vector2& b)
         { return a.x * b.x + a.y * b.y; }
     Vector2 operator*(const float& b)
         { return Vector2(b*x,b*y); }
@@ -51,10 +56,10 @@ public:
     Vector3 operator+(const Vector3& b)
         { return Vector3(x + b.x, y + b.y, z + b.z); }
     Vector3& operator+=(const Vector3& b)
-        { x += b.x; y += b.x; z += b.z; return *this; }
-    static float Dot(const Vector3& a, const Vector3& b)
+        { x += b.x; y += b.y; z += b.z; return *this; }
+    float Dot(const Vector3& a, const Vector3& b)
         { return a.x * b.x + a.y * b.y + a.z * b.z; }
-    static Vector3 Cross(const Vector3 &a, const Vector3 &b)
+    Vector3 Cross(const Vector3 &a, const Vector3 &b)
         { return Vector3(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x); }
     Vector3 operator*(const float& b)
         { return Vector3(b*x,b*y,b*z); }
@@ -85,8 +90,8 @@ public:
     Vector4 operator+(const Vector4& b)
         { return Vector4(x + b.x, y + b.y, z + b.z, w + b.w); }
     Vector4& operator+=(const Vector4& b)
-        { x += b.x; y += b.x; z += b.z; w += b.w; return *this; }
-    static float Dot(const Vector4& a, const Vector4& b)
+        { x += b.x; y += b.y; z += b.z; w += b.w; return *this; }
+    float Dot(const Vector4& a, const Vector4& b)
         { return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w; }
     Vector4 operator*(const float& b)
         { return Vector4(b*x,b*y,b*z,b*w); }
@@ -95,5 +100,8 @@ public:
 };
 
 extern Vector4 operator*(const float &a, const Vector4 &b);
+
+} //End of namespace "Math"
+} //End of namespace "GE"
 
 #endif // VECTOR

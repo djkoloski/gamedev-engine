@@ -207,6 +207,7 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 
 PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
 # Math
+	math/Vector.cpp
 	math/Matrix.cpp
 	math/Quaternion.cpp
 
