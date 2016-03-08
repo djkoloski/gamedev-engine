@@ -24,10 +24,10 @@ Matrix2& Matrix2::operator+=(const Matrix2 &rhs)
 Matrix2 Matrix2::operator+(const Matrix2 &rhs)
 {
     Matrix2 result;
+		result.d1[0] = d1[0] + rhs.d1[0];
     result.d1[1] = d1[1] + rhs.d1[1];
-		result.d1[2] = d1[2] + rhs.d1[2];
-		result.d1[3] = d1[3] + rhs.d1[3];
-		result.d1[4] = d1[4] + rhs.d1[4];
+    result.d1[2] = d1[2] + rhs.d1[2];
+    result.d1[3] = d1[3] + rhs.d1[3];
     return result;
 }
 
@@ -62,30 +62,30 @@ Vector2 Matrix2::operator*(const Vector2& rhs)
 
 Matrix2& Matrix2::operator*=(const float& rhs)
 {
-    d1[1] *= rhs;
+    d1[0] *= rhs;
+		d1[1] *= rhs;
 		d1[2] *= rhs;
 		d1[3] *= rhs;
-		d1[4] *= rhs;
     return *this;
 }
 
 Matrix2 Matrix2::operator*(const float& rhs)
 {
     Matrix2 result;
-    result.d1[1] = d1[1] * rhs;
+    result.d1[0] = d1[0] * rhs;
+		result.d1[1] = d1[1] * rhs;
 		result.d1[2] = d1[2] * rhs;
 		result.d1[3] = d1[3] * rhs;
-		result.d1[4] = d1[4] * rhs;
     return result;
 }
 
 Matrix2 operator*(const float &lhs, const Matrix2 &rhs)
 {
     Matrix2 result;
-    result.d1[1] = lhs * rhs.d1[1];
+    result.d1[0] = lhs * rhs.d1[0];
+		result.d1[1] = lhs * rhs.d1[1];
 		result.d1[2] = lhs * rhs.d1[2];
 		result.d1[3] = lhs * rhs.d1[3];
-		result.d1[4] = lhs * rhs.d1[4];
     return result;
 }
 
@@ -163,7 +163,6 @@ Matrix3 Matrix3::operator+(const Matrix3 &rhs)
 		result.d1[6] = d1[6] + rhs.d1[6];
 		result.d1[7] = d1[7] + rhs.d1[7];
 		result.d1[8] = d1[8] + rhs.d1[8];
-		result.d1[9] = d1[9] + rhs.d1[9];
     return result;
 }
 
@@ -215,6 +214,7 @@ Vector3 Matrix3::operator*(const Vector3& rhs)
 
 Matrix3& Matrix3::operator*=(const float& rhs)
 {
+		d1[0] *= rhs;
     d1[1] *= rhs;
 		d1[2] *= rhs;
 		d1[3] *= rhs;
@@ -223,13 +223,13 @@ Matrix3& Matrix3::operator*=(const float& rhs)
 		d1[6] *= rhs;
 		d1[7] *= rhs;
 		d1[8] *= rhs;
-		d1[9] *= rhs;
     return *this;
 }
 
 Matrix3 Matrix3::operator*(const float& rhs)
 {
     Matrix3 result;
+		result.d1[0] = d1[0] * rhs;
     result.d1[1] = d1[1] * rhs;
 		result.d1[2] = d1[2] * rhs;
 		result.d1[3] = d1[3] * rhs;
@@ -238,13 +238,13 @@ Matrix3 Matrix3::operator*(const float& rhs)
 		result.d1[6] = d1[6] * rhs;
 		result.d1[7] = d1[7] * rhs;
 		result.d1[8] = d1[8] * rhs;
-		result.d1[9] = d1[9] * rhs;
     return result;
 }
 
 Matrix3 operator*(const float &lhs, const Matrix3 &rhs)
 {
     Matrix3 result;
+		result.d1[0] = lhs * rhs.d1[0];
     result.d1[1] = lhs * rhs.d1[1];
 		result.d1[2] = lhs * rhs.d1[2];
 		result.d1[3] = lhs * rhs.d1[3];
@@ -253,7 +253,6 @@ Matrix3 operator*(const float &lhs, const Matrix3 &rhs)
 		result.d1[6] = lhs * rhs.d1[6];
 		result.d1[7] = lhs * rhs.d1[7];
 		result.d1[8] = lhs * rhs.d1[8];
-		result.d1[9] = lhs * rhs.d1[9];
     return result;
 }
 
@@ -374,11 +373,11 @@ Matrix4 Matrix4::operator+(const Matrix4 &rhs)
 		result.d1[8] = d1[8] + rhs.d1[8];
 		result.d1[9] = d1[9] + rhs.d1[9];
 		result.d1[10] = d1[10] + rhs.d1[10];
-		result.d1[11] = d1[10] + rhs.d1[10];
-		result.d1[12] = d1[10] + rhs.d1[10];
-		result.d1[13] = d1[10] + rhs.d1[10];
-		result.d1[14] = d1[10] + rhs.d1[10];
-		result.d1[15] = d1[10] + rhs.d1[10];
+		result.d1[11] = d1[11] + rhs.d1[11];
+		result.d1[12] = d1[12] + rhs.d1[12];
+		result.d1[13] = d1[13] + rhs.d1[13];
+		result.d1[14] = d1[14] + rhs.d1[14];
+		result.d1[15] = d1[15] + rhs.d1[15];
     return result;
 }
 
@@ -449,6 +448,7 @@ Vector4 Matrix4::operator*(const Vector4& rhs)
 
 Matrix4& Matrix4::operator*=(const float& rhs)
 {
+		d1[0] *= rhs;
     d1[1] *= rhs;
 		d1[2] *= rhs;
 		d1[3] *= rhs;
@@ -470,6 +470,7 @@ Matrix4& Matrix4::operator*=(const float& rhs)
 Matrix4 Matrix4::operator*(const float& rhs)
 {
     Matrix4 result;
+		result.d1[0] = d1[0] * rhs;
     result.d1[1] = d1[1] * rhs;
 		result.d1[2] = d1[2] * rhs;
 		result.d1[3] = d1[3] * rhs;
@@ -491,6 +492,7 @@ Matrix4 Matrix4::operator*(const float& rhs)
 Matrix4 operator*(const float &lhs, const Matrix4 &rhs)
 {
     Matrix4 result;
+		result.d1[0] = lhs * rhs.d1[0];
     result.d1[1] = lhs * rhs.d1[1];
 		result.d1[2] = lhs * rhs.d1[2];
 		result.d1[3] = lhs * rhs.d1[3];
@@ -499,7 +501,6 @@ Matrix4 operator*(const float &lhs, const Matrix4 &rhs)
 		result.d1[6] = lhs * rhs.d1[6];
 		result.d1[7] = lhs * rhs.d1[7];
 		result.d1[8] = lhs * rhs.d1[8];
-		result.d1[9] = lhs * rhs.d1[9];
     return result;
 }
 
