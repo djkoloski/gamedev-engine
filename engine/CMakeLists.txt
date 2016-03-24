@@ -98,7 +98,7 @@ if(MINGW)
 
 	set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/glew)
 	set(GLEW_LIBRARIES ${GE_WIN_LIBRARIES_DIR}/libglew32.dll.a)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwin32")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 	
 endif(MINGW)
 
@@ -201,6 +201,10 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 	math/Quaternion.hpp
 	math/Vector.hpp
 
+# Rendering
+	rendering/Mesh.h
+	rendering/Shader.h
+	
 # Types
 	types.h
 	
@@ -215,6 +219,10 @@ PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
 
 # Main
 	main.cpp
+	
+# Rendering
+	rendering/Mesh.cpp
+	rendering/Shader.cpp
 	
 #window
 	Window.cpp
