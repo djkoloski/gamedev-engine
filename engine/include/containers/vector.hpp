@@ -3,19 +3,65 @@
 
 #include <containers/vector.h>
 
+#define VERBOSE
+
+#ifndef IOSTREAM
+#define IOSTREAM
+#include <iostream>
+#endif
+
+// TODO (dunetz) : get rid of cmath when we implement our own math lib.
+#ifndef CMATH
+#define CMATH
+#include <cmath>
+#endif
 
 namespace GE 
 {
 	namespace Containers
 	{
+		int test_vectors()
+		{
+#ifdef VERBOSE
+			std::cout << "Test Vector\n";
+#endif
+			Vector<int> v = Vector<int>();
+			std::cout << "Made Vector v !\n";
+			for (int intIndex = 0; intIndex < 100; intIndex++)
+			{
+				v.push_back(intIndex);
+#ifdef VERBOSE
+				std::cout << "Pushed back Vector v with " << v[intIndex] << "\n";
+#endif
+			}
+			
+			for (int intIndex = 0; intIndex < 1; intIndex++)
+			{
+				v.insert(50, intIndex * 100);
+#ifdef VERBOSE
+				std::cout << "Inserted "<< intIndex * 100 << " to vector v at location " << 50 << "\n";
+#endif
+			}
+			
+#ifdef VERBOSE
+			for (int intIndex = 0; intIndex < v.Size(); intIndex++)
+			{
+				std::cout << v[intIndex] << " ";
+			}
+			std::cout << "\n";
+#endif
+
+			return 0;
+		}
 		/*	
 			effects: creates empty vector
 		*/
 		template<typename T> Vector<T>::Vector()
 		{
+			int initialCapacity = 1;
 			m_size = 0;
-			m_capacity = 0;
-			m_data = 0;
+			m_capacity = initialCapacity;
+			m_data = new T[initialCapacity];
 		}
 		/*
 			parameters:
@@ -137,20 +183,27 @@ namespace GE
 			effects:
 				increases capacity of vector
 		*/
-		template<typename T> void Vector<T>::increase_cap(int capacity)
+		template<typename T> void Vector<T>::increase_cap(int desiredCapacity)
 		{
-			if (m_data = 0){
-				m_size = 0;
-				m_capacity = 0;
+			/// Calculate the new capacity
+			double capItr = std::log2( desiredCapacity );
+			int newCapacity = std::pow(2,std::ceil(capItr));
+#ifdef VERBOSE
+			std::cout << "Increase vector capacity from " << m_capacity << " to " << newCapacity
+				<< " with desired new cap of " << desiredCapacity << "\n";
+#endif
+			m_capacity = newCapacity;
+
+			/// Copy the data to a new buffer
+			{
+				T *newData = new T[m_capacity];
+				//assert (newData)
+				for (int i = 0; i < m_size; i++)
+					newData[i] = m_data[i];
+				m_capacity = m_capacity;
+				delete[] m_data;
+				m_data = newData;
 			}
-			T *newData = new T[capacity];
-			//assert (newData)
-			for (int i = 0; i < m_size; i++)
-				newData[i] = m_data[i];
-			m_capacity = capacity;
-			delete[] m_data;
-			m_data = newData;
-			delete[] newData;
 		}
 		
 		/*
@@ -161,14 +214,29 @@ namespace GE
 			effects:
 				gets rid of last index
 		*/
-		template<typename T> void Vector<T>::pop_back()
+		template<typename T> T Vector<T>::pop_back()
 		{
-			m_size--; //is this efficient? 
+			/// Unsafe: does not perform bounds checking.
+			return m_data[--m_size];
 		}
 		
-		template<typename T> void Vector<T>::insert()
+		template<typename T> void Vector<T>::insert(int index, T element)
 		{
-			
+			if (m_size >= m_capacity)
+			{
+				increase_cap(m_capacity + 1);
+			}
+
+			m_size++;
+
+			T newElement = element;
+			for (int dataIndex = index; dataIndex < m_size; dataIndex++)
+			{
+				T tmp = m_data[dataIndex];
+				m_data[dataIndex] = newElement;
+				newElement = tmp;
+			}
+
 		}
 		
 		template<typename T> Vector<T>::~Vector()
@@ -178,7 +246,7 @@ namespace GE
 		
 		/* TODO:
 			Pushback ✔
-			Popback ✔
+			Popback 
 			Destructor ✔
 			Copy ✔
 			Insert

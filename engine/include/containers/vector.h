@@ -5,6 +5,8 @@ namespace GE
 {
 	namespace Containers
 	{
+		int test_vectors();
+
 		template <typename T> class Vector
 		{
 			public:
@@ -23,8 +25,8 @@ namespace GE
 			
 			//Functions
 			void push_back(const T &value);
-			void pop_back();
-			void insert();
+			T pop_back();
+			void insert(int index, T element);
 			
 			
 			private:
