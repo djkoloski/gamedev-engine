@@ -8,6 +8,9 @@
 int main(int argc, char **argv)
 {
 	GE::Window window(1280, 720, "GE");
+	window.Clear(0,0,0,0);
+	window.SwapBuffers();
+	
 	SDL_Event e;
 	
 	Vector3 verts[3] = {Vector3(-0.5f, -0.5f, 0.5f), Vector3(0.5f, -0.5f, 0.5f), Vector3(0.0f, 0.5f, 0.5f)};
@@ -18,6 +21,7 @@ int main(int argc, char **argv)
 
 	while (window.IsOpen())
 	{
+		window.Clear(0,0,0,0);
 		while (SDL_PollEvent(&e))
 		{
 			if (e.type == SDL_QUIT)

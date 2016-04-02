@@ -24,8 +24,8 @@ namespace GE
 		
 		GLuint m_vertexArrayObject;
 		GLuint m_vertexArrayBuffers[NUM_BUFFERS];
-		
-		GLuint m_drawCount;	
+
+		GLuint m_drawCount;
 	};
 }
 #endif //MESH_H
