@@ -18,6 +18,7 @@ namespace GE
 			
 			//Accessors
 			int Size();
+			bool empty();
 			
 			//Operators
 			T & operator[](int index);
@@ -27,6 +28,8 @@ namespace GE
 			void push_back(const T &value);
 			T pop_back();
 			void insert(int index, T element);
+			void swap(Vector<T> &T1, Vector<T> &T2);
+			
 			
 			
 			private:
