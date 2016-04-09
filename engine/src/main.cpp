@@ -1,4 +1,7 @@
+#ifndef IOSTREAM
+#define IOSTREAM
 #include <iostream>
+#endif
 #include <config.h>
 #include <glew.h>
 #define SDL_MAIN_HANDLED
@@ -16,16 +19,10 @@ int main(int argc, char **argv)
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << 
 	GE_VERSION_MINOR << std::endl;
 
-	GE::Containers::FixedVector<int, 32> fff;
-
-	Vec2 v (1.0f, 4.0f);
-	GE::Containers::Vector<int> bbb;
-	std::cout << "vector size: " << bbb.Size() << std::endl;
-
-	std::cout << v.x << ", " << v.y << std::endl;
+	GE::Containers::test_vectors();
 
 	SDL_Init(SDL_INIT_VIDEO);
-
+	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
