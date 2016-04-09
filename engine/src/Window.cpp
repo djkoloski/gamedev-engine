@@ -20,7 +20,9 @@ namespace GE
 
 		m_context = SDL_GL_CreateContext(m_window);
 		SDL_GL_MakeCurrent(m_window, m_context);
-
+		
+		glewExperimental = GL_TRUE;
+		glewInit();
 		glViewport(0, 0, width, height);
 	}
 

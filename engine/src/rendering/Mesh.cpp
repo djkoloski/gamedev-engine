@@ -10,7 +10,7 @@ namespace GE
 		
 		glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[VERTEX_DATA]);
-		glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(vertices[0]), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vector3), vertices, GL_STATIC_DRAW);
 		
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
