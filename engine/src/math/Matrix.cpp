@@ -52,11 +52,31 @@ Matrix2 Matrix2::operator*(const Matrix2 &rhs)
     return result;
 }
 
+bool Matrix2::operator==(const Matrix2 &rhs)
+{
+    for (unsigned int i = 0; i < 4; ++i)
+		{
+			if (d1[i] != rhs.d1[i])
+				return false;
+		}
+    return true;
+}
+
+bool Matrix2::operator!=(const Matrix2 &rhs)
+{
+    for (unsigned int i = 0; i < 4; ++i)
+		{
+			if (d1[i] != rhs.d1[i])
+				return true;
+		}
+    return false;
+}
+
 Vector2 Matrix2::operator*(const Vector2& rhs)
 {
     Vector2 result;
-    result.x = v00 * rhs.x * v01 * rhs.y;
-    result.y = v10 * rhs.x * v11 * rhs.y;
+    result.x = v00 * rhs.x + v01 * rhs.y;
+    result.y = v10 * rhs.x + v11 * rhs.y;
     return result;
 }
 
@@ -79,7 +99,7 @@ Matrix2 Matrix2::operator*(const float& rhs)
     return result;
 }
 
-Matrix2 operator*(const float &lhs, const Matrix2 &rhs)
+Matrix2 GE::Math::operator*(const float& lhs, const Matrix2 &rhs)
 {
     Matrix2 result;
     result.d1[0] = lhs * rhs.d1[0];
@@ -109,8 +129,8 @@ Matrix2 Matrix2::Inverse()
     float inv_det = 1.0f / Det();
     Matrix2 result;
     result.v00 = v11 * inv_det;
-    result.v10 = -v01 * inv_det;
-    result.v01 = -v10 * inv_det;
+    result.v10 = -v10 * inv_det;
+    result.v01 = -v01 * inv_det;
     result.v11 = v00 * inv_det;
     return result;
 }
@@ -127,24 +147,24 @@ Matrix2 Matrix2::Transpose()
 
 Vector2 Matrix2::Row(unsigned row)
 {
-    return Vector2(d2[row][0],d2[row][1]);
+    return Vector2(d2[0][row],d2[1][row]);
 }
 
 Vector2 Matrix2::Col(unsigned col)
 {
-    return Vector2(d2[0][col],d2[1][col]);
+    return Vector2(d2[col][0],d2[col][1]);
 }
 
 void Matrix2::SetRow(Vector2 &row, unsigned row_num)
 {
-    d2[row_num][0] = row.x;
-    d2[row_num][1] = row.y;
+    d2[0][row_num] = row.x;
+    d2[1][row_num] = row.y;
 }
 
 void Matrix2::SetCol(Vector2 &col, unsigned col_num)
 {
-    d2[0][col_num] = col.x;
-    d2[1][col_num] = col.y;
+    d2[col_num][0] = col.x;
+    d2[col_num][1] = col.y;
 }
 
 //

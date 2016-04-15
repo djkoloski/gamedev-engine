@@ -2,6 +2,7 @@
 #define VECTOR_H
 
 #include <cmath>
+#include <iostream>
 
 namespace GE
 {
@@ -24,6 +25,10 @@ public:
         { x = new_x; y = new_y; }
     Vector2()
         { x = 0; y = 0; }
+	bool operator==(const Vector2& b)
+		{ return (x == b.x) && (y == b.y); }
+	bool operator!=(const Vector2& b)
+		{ return (x != b.x) || (y != b.y); }
     Vector2 operator+(const Vector2& b)
         { return Vector2(x + b.x, y + b.y); }
     Vector2& operator+=(const Vector2& b)
@@ -39,7 +44,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Vector2& out);
 };
 
-extern Vector2 operator*(const float &a, const Vector2& b);
+Vector2 operator*(const float &a, const Vector2& b);
 
 //Vector 3
 
@@ -77,7 +82,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Vector3& out);
 };
 
-extern Vector3 operator*(const float &a, const Vector3 &b);
+Vector3 operator*(const float &a, const Vector3 &b);
 
 //Vector4
 
@@ -114,7 +119,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Vector4& out);
 };
 
-extern Vector4 operator*(const float &a, const Vector4 &b);
+Vector4 operator*(const float &a, const Vector4 &b);
 
 } //End of namespace "Math"
 } //End of namespace "GE"
