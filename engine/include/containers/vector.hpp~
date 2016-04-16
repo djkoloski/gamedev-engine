@@ -1,22 +1,20 @@
-//#ifndef GE_VECTOR_CPP_
+#ifndef GE_VECTOR_CPP_
 #define GE_VECTOR_CPP_
 
 #include <containers/vector.h>
 #define GE_VECTOR_INITIAL_CAPACITY 1
 #define VERBOSE
 
-//#ifndef IOSTREAM
-//#define IOSTREAM
+#ifndef IOSTREAM
+#define IOSTREAM
 #include <iostream>
-//#endif
+#endif
 
 // TODO (dunetz) : get rid of cmath when we implement our own math lib.
-
-//#ifndef CMATH
-//#define CMATH
+#ifndef CMATH
+#define CMATH
 #include <cmath>
-#include <math.h>
-//#endif 
+#endif
 
 namespace GE 
 {
@@ -33,17 +31,6 @@ namespace GE
 				v.push_back(intIndex);
 				std::cout << "Pushed back Vector v with " << v[intIndex] 
 					<< "\n";
-			}
-			
-			Vector<int> v1;
-			std::cout << "Made Vector v1!" << std::endl;
-			for (int i = 10; i < 20; i++){
-				v1.push_back(i);
-			}
-			
-			v1.swap(v1, v);
-			for (int i = 0; i < 10; i++){
-				std::cout << "v1: " << v1[i] << " v: " << v[i] << std::endl;
 			}
 			
 			for (int intIndex = 0; intIndex < 1; intIndex++)
@@ -86,7 +73,7 @@ namespace GE
 		{
 			m_size = 0;
 			m_capacity = GE_VECTOR_INITIAL_CAPACITY;
-			m_data = new T[GE_VECTOR_INITIAL_CAPACITY];
+			m_data = new T[initialCapacity];
 		}
 		/*
 			parameters:
@@ -211,7 +198,7 @@ namespace GE
 		template<typename T> void Vector<T>::increase_cap(int desiredCapacity)
 		{
 			/// Calculate the new capacity
-			double capItr = log2( desiredCapacity );
+			double capItr = std::log2( desiredCapacity );
 			int newCapacity = std::pow(2,std::ceil(capItr));
 #ifdef VERBOSE
 			std::cout << "Increase vector capacity from " << m_capacity << " to " << newCapacity
@@ -265,20 +252,6 @@ namespace GE
 				newElement = tmp;
 			}
 
-		}
-		
-		template<typename T> bool Vector<T>::empty()
-		{
-			if (m_size == 0)
-				return true;
-			else
-				return false;
-		}
-		
-		template<typename T> void Vector<T>::swap(Vector<T> &t1, Vector<T> &t2){
-			Vector<T> tmp = t1;
-			t1 = t2;
-			t2 = tmp;
 		}
 		
 		template<typename T> Vector<T>::~Vector()
@@ -336,5 +309,7 @@ namespace GE
 		
 	}
 }
+
+
 
 #endif /* GE_VECTOR_CPP_ */
