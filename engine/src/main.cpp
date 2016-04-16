@@ -13,14 +13,14 @@ int main(int argc, char **argv)
 	
 	SDL_Event e;
 	
-	Vector3 verts[3] = {Vector3(-0.5f, -0.5f, 0.5f), Vector3(0.5f, -0.5f, 0.5f), Vector3(0.0f, 0.5f, 0.5f)};
+	GE::Math::Vector3 verts[3] = {GE::Math::Vector3(-0.5f, -0.5f, 0.5f), GE::Math::Vector3(0.5f, -0.5f, 0.5f), GE::Math::Vector3(0.0f, 0.5f, 0.5f)};
 	unsigned int inds[3] = {0,1,2};
 	
 	GE::Mesh mesh(verts, 3, inds, 3);
 	GE::Shader shader("./res/uniformTestShader.vs", "./res/uniformTestShader.fs");
 	
 	shader.AddUniform("inColor");
-	Vector4 color(0.0f, 1.0f, 1.0f, 1.0f);
+	GE::Math::Vector4 color(0.0f, 1.0f, 1.0f, 1.0f);
 	
 	
 	

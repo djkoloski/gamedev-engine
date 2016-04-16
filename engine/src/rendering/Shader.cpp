@@ -148,27 +148,27 @@ namespace GE
 			break;
 		}
 	}
-	void Shader::UpdateUniform(const std::string& uniformName, const Vector2& value)
+	void Shader::UpdateUniform(const std::string& uniformName, const GE::Math::Vector2& value)
 	{
 		glUniform2f(m_uniforms[uniformName], value.x, value.y);
 	}
-	void Shader::UpdateUniform(const std::string& uniformName, const Vector3& value)
+	void Shader::UpdateUniform(const std::string& uniformName, const GE::Math::Vector3& value)
 	{
 		glUniform3f(m_uniforms[uniformName], value.x, value.y, value.z);
 	}
-	void Shader::UpdateUniform(const std::string& uniformName, const Vector4& value)
+	void Shader::UpdateUniform(const std::string& uniformName, const GE::Math::Vector4& value)
 	{
 		glUniform4f(m_uniforms[uniformName], value.x, value.y, value.z, value.w);
 	}
-	void Shader::UpdateUniform(const std::string& uniformName, const Matrix2& value)
+	void Shader::UpdateUniform(const std::string& uniformName, const GE::Math::Matrix2& value)
 	{
 		glUniformMatrix2fv(m_uniforms[uniformName], 1, false, value.d1);
 	}
-	void Shader::UpdateUniform(const std::string& uniformName, const Matrix3& value)
+	void Shader::UpdateUniform(const std::string& uniformName, const GE::Math::Matrix3& value)
 	{
 		glUniformMatrix3fv(m_uniforms[uniformName], 1, false, value.d1);
 	}
-	void Shader::UpdateUniform(const std::string& uniformName, const Matrix4& value)
+	void Shader::UpdateUniform(const std::string& uniformName, const GE::Math::Matrix4& value)
 	{
 		glUniformMatrix4fv(m_uniforms[uniformName], 1, false, value.d1);
 	}

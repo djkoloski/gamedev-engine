@@ -23,12 +23,12 @@ namespace GE
 		void UpdateUniform(const std::string& uniformName, float value);
 		void UpdateUniform(const std::string& uniformName, int* values, unsigned int size);
 		void UpdateUniform(const std::string& uniformName, float* values, unsigned int size);
-		void UpdateUniform(const std::string& uniformName, const Vector2& value);
-		void UpdateUniform(const std::string& uniformName, const Vector3& value);
-		void UpdateUniform(const std::string& uniformName, const Vector4& value);
-		void UpdateUniform(const std::string& uniformName, const Matrix2& value);
-		void UpdateUniform(const std::string& uniformName, const Matrix3& value);
-		void UpdateUniform(const std::string& uniformName, const Matrix4& value);
+		void UpdateUniform(const std::string& uniformName, const GE::Math::Vector2& value);
+		void UpdateUniform(const std::string& uniformName, const GE::Math::Vector3& value);
+		void UpdateUniform(const std::string& uniformName, const GE::Math::Vector4& value);
+		void UpdateUniform(const std::string& uniformName, const GE::Math::Matrix2& value);
+		void UpdateUniform(const std::string& uniformName, const GE::Math::Matrix3& value);
+		void UpdateUniform(const std::string& uniformName, const GE::Math::Matrix4& value);
 		
 		
 	private:

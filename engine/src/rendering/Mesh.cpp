@@ -2,7 +2,7 @@
 
 namespace GE
 {
-	Mesh::Mesh(Vector3 *vertices, unsigned int numVertices, unsigned int *indices, unsigned int numIndices)
+	Mesh::Mesh(GE::Math::Vector3 *vertices, unsigned int numVertices, unsigned int *indices, unsigned int numIndices)
 	{
 		m_drawCount = numIndices;
 		glGenVertexArrays(1, &m_vertexArrayObject);
@@ -10,7 +10,7 @@ namespace GE
 		
 		glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[VERTEX_DATA]);
-		glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vector3), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(GE::Math::Vector3), vertices, GL_STATIC_DRAW);
 		
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
