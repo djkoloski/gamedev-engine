@@ -108,7 +108,7 @@ namespace GE
 			effects: 
 				creates vector with a capacity of "capacity"
 		*/
-		template<typename T> Vector<T>::Vector(int capacity)
+		template<typename T> Vector<T>::Vector(size_t capacity)
 		{
 			m_size = 0;
 			m_capacity = capacity;
@@ -131,7 +131,7 @@ namespace GE
 			m_size = v.m_size;
 			m_capacity = v.m_size;
 			m_data = new T[m_size];
-			for (int i = 0; i < m_size; i++)
+			for (size_t i = 0; i < m_size; i++)
 			{
 				m_data[i] = v.m_data[i];
 			}
@@ -141,7 +141,7 @@ namespace GE
 			returns:
 				size of vector
 		*/
-		template<typename T> int Vector<T>::Size()
+		template<typename T> size_t Vector<T>::Size()
 		{
 			return m_size;
 		}
@@ -164,7 +164,7 @@ namespace GE
 			m_size = v.m_size;
 			m_capacity = v.m_size;
 			T *new_data = new T[m_size]; //might need to figure out how to do this with malloc
-			for (int i = 0; i <  m_size; i++) //ask david about why this works
+			for (size_t i = 0; i <  m_size; i++) //ask david about why this works
 				new_data[i] = v.m_data[i];
 			delete[] m_data;
 			m_data = new_data;
@@ -233,9 +233,8 @@ namespace GE
 			{
 				T *newData = new T[m_capacity];
 				//assert (newData)
-				for (int i = 0; i < m_size; i++)
+				for (size_t i = 0; i < m_size; i++)
 					newData[i] = m_data[i];
-				m_capacity = m_capacity;
 				delete[] m_data;
 				m_data = newData;
 			}
@@ -258,7 +257,7 @@ namespace GE
 			return m_data[--m_size];
 		}
 		
-		template<typename T> void Vector<T>::insert(int index, T element)
+		template<typename T> void Vector<T>::insert(size_t index, T element)
 		{
 			if (m_size >= m_capacity)
 			{
@@ -268,7 +267,7 @@ namespace GE
 			m_size++;
 
 			T newElement = element;
-			for (int dataIndex = index; dataIndex < m_size; dataIndex++)
+			for (size_t dataIndex = index; dataIndex < m_size; dataIndex++)
 			{
 				T tmp = m_data[dataIndex];
 				m_data[dataIndex] = newElement;
@@ -309,13 +308,13 @@ namespace GE
 		template<typename T> void Vector<T>::shrink_to_fit()
 		{
 			T *tempData = new T[m_size];
-			for (int mIndex = 0; mIndex < m_size; mIndex++)
+			for (size_t mIndex = 0; mIndex < m_size; mIndex++)
 			{
 				tempData[mIndex] = m_data[mIndex];
 			}
 			delete[] m_data;
 			m_data = tempData;
-			int cap = m_capacity;
+			size_t cap = m_capacity;
 			m_capacity = m_size;
 #ifdef VERBOSE
 			std::cout << " Shrunk capacity of vector from " << cap << " to "
@@ -327,7 +326,7 @@ namespace GE
 		//Debugging help
 		//Assumes printable
 		template<typename T> void Vector<T>::printIntVector() {
-			for (int i = 0; i < Size(); i++) {
+			for (std::size_t i = 0; i < Size(); i++) {
 				std::cout << m_data[i] << " ";
 			}
 			std::cout << "\n";
@@ -348,11 +347,11 @@ namespace GE
 			size/max_size ✔
 			shrink-to-fit ✔
 			erase
-			empty
-			clear
+			empty ✔
+			clear ✔
 			swap ✔
 			emplace
-			use size_type vs int -> more robust code
+			use size_type vs int -> more robust code ✔
 		*/
 		
 		
