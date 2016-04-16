@@ -4,6 +4,7 @@
 #include <containers/vector.h>
 #define GE_VECTOR_INITIAL_CAPACITY 1
 #define VERBOSE
+#define DEBUG
 
 //#ifndef IOSTREAM
 //#define IOSTREAM
@@ -22,9 +23,11 @@ namespace GE
 {
 	namespace Containers
 	{
+		//TEST CASES:
 		int test_vectors()
 		{
 #ifdef VERBOSE
+			//PUSHBACK TESTS
 			std::cout << "Test Vector\n";
 			Vector<int> v = Vector<int>();
 			std::cout << "Made Vector v !\n";
@@ -40,12 +43,12 @@ namespace GE
 			for (int i = 10; i < 20; i++){
 				v1.push_back(i);
 			}
-			
+			//SWAP TESTS
 			v1.swap(v1, v);
 			for (int i = 0; i < 10; i++){
 				std::cout << "v1: " << v1[i] << " v: " << v[i] << std::endl;
 			}
-			
+			//INSERT TESTS
 			for (int intIndex = 0; intIndex < 1; intIndex++)
 			{
 				v.insert(50, intIndex * 100);
@@ -58,7 +61,7 @@ namespace GE
 				std::cout << v[intIndex] << " ";
 			}
 			std::cout << "\n";
-
+			//SHRINK TO FIT TESTS
 			std::cout << "Shrink v to fit\n";
 			v.shrink_to_fit();
 			
@@ -67,7 +70,7 @@ namespace GE
 				std::cout << v[intIndex] << " ";
 			}
 			std::cout << "\n";
-
+			//CLEAR TESTS
 			v.clear();
 			std::cout << "Clear vector v\n";
 
@@ -76,6 +79,13 @@ namespace GE
 				std::cout << v[intIndex] << " ";
 			}
 			std::cout << "\n";
+			
+			std::cout << "printIntVector Test: \n";
+			v.printIntVector();
+			v.push_back(5);
+			v.push_back(10);
+			v.push_back(15);
+			v.printIntVector();
 #endif
 			return 0;
 		}
@@ -313,6 +323,17 @@ namespace GE
 #endif
 		}
 		
+#ifdef DEBUG
+		//Debugging help
+		//Assumes printable
+		template<typename T> void Vector<T>::printIntVector() {
+			for (int i = 0; i < Size(); i++) {
+				std::cout << m_data[i] << " ";
+			}
+			std::cout << "\n";
+		}
+#endif
+
 		/* TODO:
 			Pushback ✔
 			Popback 
@@ -333,6 +354,7 @@ namespace GE
 			emplace
 			use size_type vs int -> more robust code
 		*/
+		
 		
 	}
 }

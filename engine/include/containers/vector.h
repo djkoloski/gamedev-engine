@@ -1,5 +1,7 @@
 #ifndef GE_VECTOR_H_
 #define GE_VECTOR_H_
+
+#define DEBUG
 /*
  * clear
  * shrink_to_fit
@@ -34,6 +36,9 @@ namespace GE
 			void swap(Vector<T> &T1, Vector<T> &T2);
 			void clear();
 			void shrink_to_fit();
+#ifdef DEBUG
+			void printIntVector();
+#endif
 			
 			private:
 				//helper functions
