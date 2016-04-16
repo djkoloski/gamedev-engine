@@ -1,4 +1,4 @@
-//#ifndef GE_VECTOR_CPP_
+#ifndef GE_VECTOR_CPP_
 #define GE_VECTOR_CPP_
 
 #include <containers/vector.h>
@@ -318,18 +318,18 @@ namespace GE
 			Popback 
 			Destructor ✔
 			Copy ✔
-			Insert 
+			Insert ✔
 			Assignment/ Equals?? ✔
 			Concatenation/Addall
 			Pushfront/Popfront
 			Indexing ✔
 			Iterators?? (pointers based) (typedef of pointers)
 			size/max_size ✔
-			shrink-to-fit
+			shrink-to-fit ✔
 			erase
 			empty
 			clear
-			swap
+			swap ✔
 			emplace
 			use size_type vs int -> more robust code
 		*/
