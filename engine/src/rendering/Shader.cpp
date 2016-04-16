@@ -1,7 +1,6 @@
 #include <rendering/Shader.h>
 #include <fstream>
 #include <iostream>
-#include <string>
 #include <vector>
 namespace GE
 {
@@ -80,7 +79,100 @@ namespace GE
 	{
 		glUseProgram(m_program);
 	}
-
+	
+	void Shader::AddUniform(const std::string& uniformName)
+	{
+		GLint loc = glGetUniformLocation(m_program, uniformName.c_str());
+		if (loc == -1) return;
+		
+		std::cout << loc << std::endl;
+		
+		m_uniforms[std::string(uniformName)] = loc;
+	}
+	
+	void Shader::UpdateUniform(const std::string& uniformName, int value)
+	{
+		glUniform1i(m_uniforms[uniformName], value);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, float value)
+	{
+		glUniform1f(m_uniforms[uniformName], value);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, int* values, unsigned int size)
+	{
+		switch (size)
+		{
+		case 1:
+			glUniform1iv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		case 2:
+			glUniform2iv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		case 3:
+			glUniform3iv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		case 4:
+			glUniform4iv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		default:
+			glUniform1iv(m_uniforms[uniformName], size, values);
+			break;
+		}
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, float* values, unsigned int size)
+	{
+		switch (size)
+		{
+		case 1:
+			glUniform1fv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		case 2:
+			glUniform2fv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		case 3:
+			glUniform3fv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		case 4:
+			glUniform4fv(m_uniforms[uniformName], 1, values);
+			break;
+		
+		default:
+			glUniform1fv(m_uniforms[uniformName], size, values);
+			break;
+		}
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, const Vector2& value)
+	{
+		glUniform2f(m_uniforms[uniformName], value.x, value.y);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, const Vector3& value)
+	{
+		glUniform3f(m_uniforms[uniformName], value.x, value.y, value.z);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, const Vector4& value)
+	{
+		glUniform4f(m_uniforms[uniformName], value.x, value.y, value.z, value.w);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, const Matrix2& value)
+	{
+		glUniformMatrix2fv(m_uniforms[uniformName], 1, false, value.d1);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, const Matrix3& value)
+	{
+		glUniformMatrix3fv(m_uniforms[uniformName], 1, false, value.d1);
+	}
+	void Shader::UpdateUniform(const std::string& uniformName, const Matrix4& value)
+	{
+		glUniformMatrix4fv(m_uniforms[uniformName], 1, false, value.d1);
+	}
+	
 	static GLuint createShader(const std::string& text, GLenum shaderType)
 	{
 		GLuint shader = glCreateShader(shaderType);
@@ -124,5 +216,5 @@ namespace GE
 			}
 			std::cerr << errorMessage << ": '" << error << "'" << std::endl;
 		}
-}
+	}
 }

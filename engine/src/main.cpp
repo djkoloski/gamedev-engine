@@ -17,8 +17,13 @@ int main(int argc, char **argv)
 	unsigned int inds[3] = {0,1,2};
 	
 	GE::Mesh mesh(verts, 3, inds, 3);
-	GE::Shader shader("./res/testShader.vs", "./res/testShader.fs");
-
+	GE::Shader shader("./res/uniformTestShader.vs", "./res/uniformTestShader.fs");
+	
+	shader.AddUniform("inColor");
+	Vector4 color(0.0f, 1.0f, 1.0f, 1.0f);
+	
+	
+	
 	while (window.IsOpen())
 	{
 		window.Clear(0,0,0,0);
@@ -28,6 +33,7 @@ int main(int argc, char **argv)
 				window.Close();
 		}
 
+		shader.UpdateUniform("inColor", color);
 		shader.Bind();
 		mesh.Draw();
 

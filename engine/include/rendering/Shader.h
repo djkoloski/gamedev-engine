@@ -2,6 +2,10 @@
 #define SHADER_H
 
 #include <glew\glew.h>
+#include <string>
+#include <map>
+#include <math\Vector.hpp>
+#include <math\Matrix.hpp>
 
 namespace GE
 {
@@ -12,6 +16,20 @@ namespace GE
 		~Shader();
 		
 		void Bind();
+		
+		void AddUniform(const std::string& uniformName);
+		
+		void UpdateUniform(const std::string& uniformName, int value);
+		void UpdateUniform(const std::string& uniformName, float value);
+		void UpdateUniform(const std::string& uniformName, int* values, unsigned int size);
+		void UpdateUniform(const std::string& uniformName, float* values, unsigned int size);
+		void UpdateUniform(const std::string& uniformName, const Vector2& value);
+		void UpdateUniform(const std::string& uniformName, const Vector3& value);
+		void UpdateUniform(const std::string& uniformName, const Vector4& value);
+		void UpdateUniform(const std::string& uniformName, const Matrix2& value);
+		void UpdateUniform(const std::string& uniformName, const Matrix3& value);
+		void UpdateUniform(const std::string& uniformName, const Matrix4& value);
+		
 		
 	private:
 		enum ShaderType
@@ -24,6 +42,8 @@ namespace GE
 		
 		GLuint m_program;
 		GLuint m_shaders[NUM_SHADERS];
+		
+		std::map<std::string, GLint> m_uniforms;
 		
 	};
 }
