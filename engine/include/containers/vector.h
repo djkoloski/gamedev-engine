@@ -37,6 +37,7 @@ namespace GE
 			void clear();
 			void erase(size_t index);
 			void shrink_to_fit();
+			void concatenate(Vector<T> &v);
 #ifdef DEBUG
 			void printIntVector();
 #endif

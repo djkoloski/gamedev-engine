@@ -1,5 +1,5 @@
-#ifndef GE_VECTOR_CPP_
-#define GE_VECTOR_CPP_
+#ifndef GE_VECTOR_HPP_
+#define GE_VECTOR_HPP_
 
 #include <containers/vector.h>
 #define GE_VECTOR_INITIAL_CAPACITY 1
@@ -30,42 +30,36 @@ namespace GE
 			//PUSHBACK TESTS
 			std::cout << "Test Vector\n";
 			Vector<int> v = Vector<int>();
-			std::cout << "Made Vector v !\n";
-			for (int intIndex = 0; intIndex < 100; intIndex++)
+			std::cout << "Pushback Vector v with:" << std::endl;
+			/* concatenate test */
+			for (size_t intIndex = 0; intIndex < 20; intIndex++)
 			{
 				v.push_back(intIndex);
-				std::cout << "Pushed back Vector v with " << v[intIndex] 
+				std::cout << "\tMember "<<intIndex<<": " << v[intIndex] 
 					<< "\n";
 			}
-			
-			Vector<int> v1;
-			std::cout << "Made Vector v1!" << std::endl;
-			for (int i = 10; i < 20; i++){
-				v1.push_back(i);
-			}
-			//SWAP TESTS
-			v1.swap(v1, v);
-			for (int i = 0; i < 10; i++){
-				std::cout << "v1: " << v1[i] << " v: " << v[i] << std::endl;
-			}
-			//INSERT TESTS
-			for (int intIndex = 0; intIndex < 1; intIndex++)
+			Vector<int> v1 = Vector<int>();
+			std::cout << "Pushback Vector v1 with:" << std::endl;
+			for (size_t intIndex = 0; intIndex < 20; intIndex++)
 			{
-				v.insert(50, intIndex * 100);
-				std::cout << "Inserted "<< intIndex * 100 
-					<< " to vector v at location " << 50 << "\n";
+				v1.push_back(intIndex+20);
+				std::cout << "\tMember "<<intIndex<<": " << v1[intIndex] 
+					<< "\n";
 			}
-			
-			for (int intIndex = 0; intIndex < v.Size(); intIndex++)
+			std::cout << "Concatenate v1 onto v" << std::endl;
+			v.concatenate(v1);
+			for (size_t intIndex = 0; intIndex < v.Size(); intIndex++)
 			{
-				std::cout << v[intIndex] << " ";
+				std::cout << "\tMember "<<intIndex<<": " << v[intIndex] 
+					<< "\n";
 			}
 			std::cout << "\n";
+			
 			//SHRINK TO FIT TESTS
 			std::cout << "Shrink v to fit\n";
 			v.shrink_to_fit();
 			
-			for (int intIndex = 0; intIndex < v.Size(); intIndex++)
+			for (size_t intIndex = 0; intIndex < v.Size(); intIndex++)
 			{
 				std::cout << v[intIndex] << " ";
 			}
@@ -74,7 +68,7 @@ namespace GE
 			v.clear();
 			std::cout << "Clear vector v\n";
 
-			for (int intIndex = 0; intIndex < v.Size(); intIndex++)
+			for (size_t intIndex = 0; intIndex < v.Size(); intIndex++)
 			{
 				std::cout << v[intIndex] << " ";
 			}
@@ -278,10 +272,7 @@ namespace GE
 		
 		template<typename T> bool Vector<T>::empty()
 		{
-			if (m_size == 0)
-				return true;
-			else
-				return false;
+			return (m_size == 0);
 		}
 		
 		template<typename T> void Vector<T>::swap(Vector<T> &t1, Vector<T> &t2){
@@ -316,10 +307,19 @@ namespace GE
 			m_data = tempData;
 			size_t cap = m_capacity;
 			m_capacity = m_size;
-#ifdef VERBOSE
-			std::cout << " Shrunk capacity of vector from " << cap << " to "
-				<< m_capacity << '\n';
-#endif
+		}
+
+		template<typename T> void Vector<T>::concatenate(Vector<T> &v)
+		{
+			int destIndex = m_size;
+			int newSize = m_size + v.Size();
+			increase_cap(newSize);
+			int otherSize = v.Size();
+			for (int copyIndex = 0; copyIndex < otherSize; copyIndex++)
+			{
+				m_data[destIndex + copyIndex] = v[copyIndex];
+			}
+			m_size = newSize;
 		}
 		
 #ifdef DEBUG
@@ -335,15 +335,15 @@ namespace GE
 
 		/* TODO:
 			Pushback ✔
-			Popback 
+			Popback ✔
 			Destructor ✔
 			Copy ✔
 			Insert ✔
 			Assignment/ Equals?? ✔
-			Concatenation/Addall
-			Pushfront/Popfront
+			Concatenation/Addall ✔
+			Pushfront/Popfront 
 			Indexing ✔
-			Iterators?? (pointers based) (typedef of pointers)
+			Iterators?? (pointers based) (typedef of pointers) 
 			size/max_size ✔
 			shrink-to-fit ✔
 			erase
@@ -358,4 +358,4 @@ namespace GE
 	}
 }
 
-#endif /* GE_VECTOR_CPP_ */
+#endif /* GE_VECTOR_HPP_ */
