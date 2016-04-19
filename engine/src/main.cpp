@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	GE::Mesh mesh(verts, 3, inds, 3);
 	GE::Shader shader("./res/uniformTestShader.vs", "./res/uniformTestShader.fs");
 	
-	shader.AddUniform("inColor");
+	//shader.AddUniform("inColor");
 	GE::Math::Vector4 color(0.0f, 1.0f, 1.0f, 1.0f);
 	
 	

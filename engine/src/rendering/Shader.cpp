@@ -10,6 +10,7 @@ namespace GE
 	Shader::Shader(const char *vertexShader, const char *fragmentShader)
 	{
 		std::vector<std::string> attributes;
+		std::vector<std::string> uniforms;
 		m_program = glCreateProgram();
 		
 		std::string vertShader;
@@ -31,6 +32,17 @@ namespace GE
 				attrib = line.substr(pos, line.find_first_of(" ;\t\n",pos) - pos);
 				attributes.push_back(attrib);
 			}
+			
+			else if(line.size() > pos + 8 && line.substr(pos, 8) == "uniform ")
+			{
+				pos = line.find_first_of(' ', pos + 7);
+				pos = line.find_first_not_of(' ', pos);
+				std::string uniform;
+				pos = line.find(' ',pos) + 1;
+				uniform = line.substr(pos, line.find_first_of(" ;\t\n",pos) - pos);
+				uniforms.push_back(uniform);
+			}
+			
 			line += '\n';
 			vertShader += line;		
 		}
@@ -41,6 +53,16 @@ namespace GE
 		{
 			std::string line;
 			getline(fragSrc, line);
+			int pos = line.find_first_not_of(" \t");
+			if(line.size() > pos + 8 && line.substr(pos, 8) == "uniform ")
+			{
+				pos = line.find_first_of(' ', pos + 7);
+				pos = line.find_first_not_of(' ', pos);
+				std::string uniform;
+				pos = line.find(' ',pos) + 1;
+				uniform = line.substr(pos, line.find_first_of(" ;\t\n",pos) - pos);
+				uniforms.push_back(uniform);
+			}
 			line += '\n';
 			fragShader += line;
 		}
@@ -63,6 +85,11 @@ namespace GE
 		checkShaderError(m_program, GL_LINK_STATUS, true, "Error: Program linking failed: ");
 		glValidateProgram(m_program);
 		checkShaderError(m_program, GL_VALIDATE_STATUS, true, "Error: Program is invalid: ");
+		
+		for(int i = 0; i < uniforms.size(); ++i)
+		{
+			AddUniform(uniforms[i]);
+		}
 	}
 
 	Shader::~Shader()
@@ -84,8 +111,6 @@ namespace GE
 	{
 		GLint loc = glGetUniformLocation(m_program, uniformName.c_str());
 		if (loc == -1) return;
-		
-		std::cout << loc << std::endl;
 		
 		m_uniforms[std::string(uniformName)] = loc;
 	}
