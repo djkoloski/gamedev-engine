@@ -101,10 +101,10 @@ namespace GE
 			std::cout << v3.Capacity() << std::endl;
 			v3.printIntVector();
 			
-			int d[] = {};
-			Vector<int> v4 = Vector<int>(d,0);
-			std::cout << v4.Size() << " " << v4.Capacity() << " " << std::endl;
-			v4.printIntVector();
+			//int d[] = {};
+			//Vector<int> v4 = Vector<int>(d,0);
+			//std::cout << v4.Size() << " " << v4.Capacity() << " " << std::endl;
+			//v4.printIntVector();
 #endif
 			return 0;
 		}
@@ -391,6 +391,8 @@ namespace GE
 #endif
 
 		/* TODO:
+			Iterators?? (pointers based) (typedef of pointers) 
+			ITERATORS
 			Pushback ✔
 			Popback ✔
 			Destructor ✔
@@ -399,7 +401,6 @@ namespace GE
 			Assignment/ Equals?? ✔
 			Concatenation/Addall ✔
 			Indexing ✔
-			Iterators?? (pointers based) (typedef of pointers) 
 			size/max_size ✔
 			shrink-to-fit ✔
 			erase ✔
