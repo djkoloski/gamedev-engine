@@ -80,6 +80,20 @@ namespace GE
 			v.push_back(10);
 			v.push_back(15);
 			v.printIntVector();
+			
+			Vector<int> v2 = Vector<int>();
+			for (int i = 0; i < 20; i++) {
+				v2.push_back(i*23%17);
+			}
+			v2.printIntVector();
+			v2.erase(0);
+			v2.printIntVector();
+			v2.erase(0);
+			v2.printIntVector();
+			v2.erase(17);
+			v2.printIntVector();
+			v2.erase(5);
+			v2.printIntVector();
 #endif
 			return 0;
 		}
@@ -268,6 +282,19 @@ namespace GE
 				newElement = tmp;
 			}
 
+		}
+		
+		
+		//Requires index in bound (0 <= index < m_size)
+		//Must manually decrease capacity, capacity checks are possibly expensive
+		template<typename T> void Vector<T>::erase(size_t index)
+		{
+			for (int i = index; i < m_size-1; i++)
+			{
+				m_data[i] = m_data[i+1];
+			}
+			m_size--;
+			
 		}
 		
 		template<typename T> bool Vector<T>::empty()
