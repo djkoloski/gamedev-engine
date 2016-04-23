@@ -18,11 +18,13 @@ namespace GE
 			//Constructors
 			Vector();
 			Vector(size_t size);
+			Vector(T a[], size_t size);
 			Vector(const Vector<T> &v);	//copy constructor
 			~Vector(); //Destructor
 			
 			//Accessors
 			size_t Size();
+			size_t Capacity();
 			bool empty();
 			
 			//Operators

@@ -94,6 +94,17 @@ namespace GE
 			v2.printIntVector();
 			v2.erase(5);
 			v2.printIntVector();
+			
+			int c[] = {1,2,3,4,5};
+			Vector<int> v3 = Vector<int>(c,5);
+			std::cout << v3.Size() << std::endl;
+			std::cout << v3.Capacity() << std::endl;
+			v3.printIntVector();
+			
+			int d[] = {};
+			Vector<int> v4 = Vector<int>(d,0);
+			std::cout << v4.Size() << " " << v4.Capacity() << " " << std::endl;
+			v4.printIntVector();
 #endif
 			return 0;
 		}
@@ -121,6 +132,18 @@ namespace GE
 			m_size = 0;
 			m_capacity = capacity;
 			m_data = new T[capacity];
+		}
+		
+		//requires size = a.size
+		template<typename T> Vector<T>::Vector(T a[], size_t size)
+		{
+			m_size = size;
+			m_capacity = std::pow(2,std::ceil(log2( size )));
+			m_data = new T[m_capacity];
+			for (int i = 0; i < size; i++)
+			{
+				m_data[i] = a[i];
+			}
 		}
 		
 		/*	
@@ -152,6 +175,11 @@ namespace GE
 		template<typename T> size_t Vector<T>::Size()
 		{
 			return m_size;
+		}
+		
+		template<typename T> size_t Vector<T>::Capacity()
+		{
+			return m_capacity;
 		}
 		
 		/*	
@@ -356,7 +384,9 @@ namespace GE
 			for (std::size_t i = 0; i < Size(); i++) {
 				std::cout << m_data[i] << " ";
 			}
+			std::cout << "got here" << std::endl;
 			std::cout << "\n";
+			std::cout << "got here" << std::endl;
 		}
 #endif
 
@@ -368,12 +398,11 @@ namespace GE
 			Insert ✔
 			Assignment/ Equals?? ✔
 			Concatenation/Addall ✔
-			Pushfront/Popfront 
 			Indexing ✔
 			Iterators?? (pointers based) (typedef of pointers) 
 			size/max_size ✔
 			shrink-to-fit ✔
-			erase
+			erase ✔
 			empty ✔
 			clear ✔
 			swap ✔
