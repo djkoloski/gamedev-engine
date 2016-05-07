@@ -4,19 +4,19 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 
-#include <math/Vector.hpp>
+#include <glm/vec2.hpp>
 
-using namespace GE::Math;
+using namespace glm;
 
 int main(int argc, char **argv)
 {
 	std::cout << "GE version: " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << std::endl;
 
-	Vector2 v;
-	v.x = 1.0f;
-	v.y = 4.0f;
+	vec2 v1(1.0f,4.0f);
+	vec2 v2(3.0f,6.0f);
+	vec2 result = v1 + v2;
 
-	std::cout << v.x << ", " << v.y << std::endl;
+	std::cout << result.x << ", " << result.y << std::endl;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
