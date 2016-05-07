@@ -351,6 +351,101 @@ TEST_F(Matrix2Test, SetColFunction)
 	EXPECT_EQ(true, mat2_settest == mat2_pow2);
 }
 
+//Quaternion Tests
+
+class QuaternionTest : public ::testing::Test
+{
+protected:
+	GE::Math::Quaternion quat_identity;
+	GE::Math::Quaternion quat_invertedx;
+	GE::Math::Quaternion quat_invertedy;
+	GE::Math::Quaternion quat_invertedz;
+	GE::Math::Quaternion quat_ninetyx;
+	GE::Math::Quaternion quat_ninetyy;
+	GE::Math::Quaternion quat_ninetyz;
+	virtual void SetUp()
+	{
+		//quat_identity: Self-explanatory.
+		quat_identity.w = 1;
+		quat_identity.x = 0;
+		quat_identity.y = 0;
+		quat_identity.z = 0;
+
+		//quat_invertedx: A 180 degree turn on the x-axis.
+		quat_invertedx.w = 0;
+		quat_invertedx.x = 1;
+		quat_invertedx.y = 0;
+		quat_invertedx.z = 0;
+
+		//quat_invertedy: A 180 degree turn on the y-axis.
+		quat_invertedy.w = 0;
+		quat_invertedy.x = 0;
+		quat_invertedy.y = 1;
+		quat_invertedy.z = 0;
+
+		//quat_invertedz: A 180 degree turn on the z-axis.
+		quat_invertedz.w = 0;
+		quat_invertedz.x = 0;
+		quat_invertedz.y = 0;
+		quat_invertedz.z = 1;
+
+		//quat_ninetyx: A 90 degree turn on the x-axis.
+		quat_ninetyx.w = 0.70711;
+		quat_ninetyx.x = 0.70711;
+		quat_ninetyx.y = 0;
+		quat_ninetyx.z = 0;
+
+		//quat_invertedy: A 90 degree turn on the y-axis.
+		quat_ninetyx.w = 0.70711;
+		quat_ninetyx.x = 0;
+		quat_ninetyx.y = 0.70711;
+		quat_ninetyx.z = 0;
+
+		//quat_invertedz: A 90 degree turn on the z-axis.
+		quat_ninetyx.w = 0.70711;
+		quat_ninetyx.x = 0;
+		quat_ninetyx.y = 0;
+		quat_ninetyx.z = 0.70711;
+	}
+};
+
+TEST_F(QuaternionTest, QuatToMatrix)
+{
+	GE::Math::Matrix3 mat3_result = Quat2Matrix(quat_invertedx);
+	EXPECT_FLOAT_EQ(1,  mat3_result.v00);
+	EXPECT_FLOAT_EQ(0,  mat3_result.v10);
+	EXPECT_FLOAT_EQ(0,  mat3_result.v20);
+	EXPECT_FLOAT_EQ(0,  mat3_result.v01);
+	EXPECT_FLOAT_EQ(-1, mat3_result.v11);
+	EXPECT_FLOAT_EQ(0,  mat3_result.v21);
+	EXPECT_FLOAT_EQ(0,  mat3_result.v02);
+	EXPECT_FLOAT_EQ(0,  mat3_result.v12);
+	EXPECT_FLOAT_EQ(-1, mat3_result.v22);
+}
+
+TEST_F(QuaternionTest, MatrixToQuat)
+{
+	GE::Math::Matrix3 mat3_input;
+	GE::Math::Quaternion quat_result;
+	
+	mat3_input.v00 = 1;
+	mat3_input.v10 = 0;
+	mat3_input.v20 = 0;
+	mat3_input.v01 = 0;
+	mat3_input.v11 = -1;
+	mat3_input.v21 = 0;
+	mat3_input.v02 = 0;
+	mat3_input.v12 = 0;
+	mat3_input.v22 = -1;
+
+	quat_result = Matrix2Quat(mat3_input);
+
+	EXPECT_FLOAT_EQ(0, quat_result.w);
+	EXPECT_FLOAT_EQ(1, quat_result.x);
+	EXPECT_FLOAT_EQ(0, quat_result.y);
+	EXPECT_FLOAT_EQ(0, quat_result.z);
+}
+
 GTEST_API_ int main(int argc, char **argv) {
 	printf("GE::Math Unit Tests\n");
 	testing::InitGoogleTest(&argc, argv);
