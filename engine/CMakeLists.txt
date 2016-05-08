@@ -205,6 +205,7 @@ PREPEND(GE_HEADERS ${GE_INCLUDE_DIR}
 # Rendering
 	rendering/Mesh.h
 	rendering/Shader.h
+	rendering/Texture.h
 	
 # Types
 	types.h
@@ -225,6 +226,7 @@ PREPEND(GE_SOURCE ${GE_SOURCE_DIR}
 # Rendering
 	rendering/Mesh.cpp
 	rendering/Shader.cpp
+	rendering/Texture.cpp
 	
 #window
 	Window.cpp

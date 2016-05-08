@@ -2,7 +2,7 @@
 
 namespace GE
 {
-	Mesh::Mesh(GE::Math::Vector3 *vertices, unsigned int numVertices, unsigned int *indices, unsigned int numIndices)
+	Mesh::Mesh(GE::Math::Vector3 *vertices, unsigned int numVertices, GE::Math::Vector2 *texCoords, unsigned int numTexCoords, unsigned int *indices, unsigned int numIndices)
 	{
 		m_drawCount = numIndices;
 		glGenVertexArrays(1, &m_vertexArrayObject);
@@ -14,6 +14,12 @@ namespace GE
 		
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[TEXCOORD_DATA]);
+		glBufferData(GL_ARRAY_BUFFER, numTexCoords * sizeof(GE::Math::Vector2), texCoords, GL_STATIC_DRAW);
+		
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vertexArrayBuffers[INDICES]);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(GLuint), indices, GL_STATIC_DRAW);

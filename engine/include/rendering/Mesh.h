@@ -8,7 +8,7 @@ namespace GE
 	class Mesh
 	{
 	public:
-		Mesh(GE::Math::Vector3 *vertices, unsigned int numVertices, unsigned int *indices, unsigned int numIndices);
+		Mesh(GE::Math::Vector3 *vertices, unsigned int numVertices, GE::Math::Vector2 *texCoords, unsigned int numTexCoords, unsigned int *indices, unsigned int numIndices);
 		~Mesh();
 		
 		void Draw();
@@ -17,6 +17,7 @@ namespace GE
 		enum  MeshBuffer
 		{
 			VERTEX_DATA,
+			TEXCOORD_DATA,
 			INDICES,
 			
 			NUM_BUFFERS
