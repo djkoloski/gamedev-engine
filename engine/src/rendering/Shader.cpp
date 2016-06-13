@@ -90,6 +90,11 @@ namespace GE
 		{
 			AddUniform(uniforms[i]);
 		}
+		
+		for(int i = 0; i < NUM_SHADERS; ++i)
+		{
+			glDeleteShader(m_shaders[i]);
+		}
 	}
 
 	Shader::~Shader()
@@ -97,7 +102,6 @@ namespace GE
 		for(unsigned int i = 0; i < NUM_SHADERS; ++i)
 		{
 			glDetachShader(m_program, m_shaders[i]);
-			glDeleteShader(m_shaders[i]);
 		}
 		glDeleteProgram(m_program);
 	}
